@@ -7,3 +7,6 @@ c:\users\clint.bobjr\documents\visual studio 2015\Projects\MTList\MTList\obj\Deb
 c:\users\clint.bobjr\documents\visual studio 2015\Projects\MTList\MTList\obj\Debug\MTList.csproj.GenerateResource.Cache
 c:\users\clint.bobjr\documents\visual studio 2015\Projects\MTList\MTList\obj\Debug\MTList.exe
 c:\users\clint.bobjr\documents\visual studio 2015\Projects\MTList\MTList\obj\Debug\MTList.pdb
+C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\bin\Debug\MTList.exe.config
+C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\obj\Debug\MTList.exe
+C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\obj\Debug\MTList.pdb
