@@ -1,0 +1,9 @@
+c:\users\clint.bobjr\documents\visual studio 2015\Projects\MTList\MTList\bin\Debug\MTList.exe.config
+c:\users\clint.bobjr\documents\visual studio 2015\Projects\MTList\MTList\bin\Debug\MTList.exe
+c:\users\clint.bobjr\documents\visual studio 2015\Projects\MTList\MTList\bin\Debug\MTList.pdb
+c:\users\clint.bobjr\documents\visual studio 2015\Projects\MTList\MTList\obj\Debug\MTList.csprojResolveAssemblyReference.cache
+c:\users\clint.bobjr\documents\visual studio 2015\Projects\MTList\MTList\obj\Debug\MTList.Form1.resources
+c:\users\clint.bobjr\documents\visual studio 2015\Projects\MTList\MTList\obj\Debug\MTList.Properties.Resources.resources
+c:\users\clint.bobjr\documents\visual studio 2015\Projects\MTList\MTList\obj\Debug\MTList.csproj.GenerateResource.Cache
+c:\users\clint.bobjr\documents\visual studio 2015\Projects\MTList\MTList\obj\Debug\MTList.exe
+c:\users\clint.bobjr\documents\visual studio 2015\Projects\MTList\MTList\obj\Debug\MTList.pdb
