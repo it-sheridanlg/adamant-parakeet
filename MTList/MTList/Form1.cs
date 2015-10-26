@@ -34,31 +34,7 @@ namespace MTList
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            SqlConnection myConnection = new SqlConnection("user id=sa;" +
-                                       "password=aft01server;server=192.168.1.213;" +
-                                       "Trusted_Connection=no;" +
-                                       "database=MTList; " +
-                                       "connection timeout=30");
-
-            try
-            {
-                myConnection.Open();
-            }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
-
-
-            try
-            {
-                myConnection.Close();
-            }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
-
+        
             
         }
 
@@ -99,7 +75,7 @@ namespace MTList
             {
                 DataTable table = new DataTable();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = 'insert'
+               // cmd.CommandText = 'insert';
                 table.Locale = System.Globalization.CultureInfo.InvariantCulture;
                 dataAdapter.SelectCommand = cmd;
                 dataAdapter.Fill(table);
