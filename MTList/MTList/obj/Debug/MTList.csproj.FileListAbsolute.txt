@@ -16,3 +16,4 @@ C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\obj\Debug\M
 C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\obj\Debug\MTList.Form1.resources
 C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\obj\Debug\MTList.Properties.Resources.resources
 C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\obj\Debug\MTList.csproj.GenerateResource.Cache
+C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\obj\Debug\MTList.Form2.resources
