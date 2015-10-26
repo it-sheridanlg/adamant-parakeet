@@ -51,16 +51,16 @@
             this.refreshWOSaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMTListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.BtnSave = new System.Windows.Forms.Button();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.fillByToolStrip = new System.Windows.Forms.ToolStrip();
             this.fillByToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.mTTableTableAdapter = new MTList.MTLISTDataSetTableAdapters.MTTableTableAdapter();
-            this.tableAdapterManager = new MTList.MTLISTDataSetTableAdapters.TableAdapterManager();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tslAdd = new System.Windows.Forms.ToolStripLabel();
+            this.mTTableTableAdapter = new MTList.MTLISTDataSetTableAdapters.MTTableTableAdapter();
+            this.tableAdapterManager = new MTList.MTLISTDataSetTableAdapters.TableAdapterManager();
+            this.txtTEST = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mTTableBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mTLISTDataSet)).BeginInit();
@@ -178,20 +178,20 @@
             // printGeneralToolStripMenuItem
             // 
             this.printGeneralToolStripMenuItem.Name = "printGeneralToolStripMenuItem";
-            this.printGeneralToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.printGeneralToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.printGeneralToolStripMenuItem.Text = "Print General";
             // 
             // printToolStripMenuItem1
             // 
             this.printToolStripMenuItem1.Name = "printToolStripMenuItem1";
-            this.printToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.printToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
             this.printToolStripMenuItem1.Text = "Print";
             this.printToolStripMenuItem1.Click += new System.EventHandler(this.printToolStripMenuItem1_Click);
             // 
             // printCustomToolStripMenuItem
             // 
             this.printCustomToolStripMenuItem.Name = "printCustomToolStripMenuItem";
-            this.printCustomToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.printCustomToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.printCustomToolStripMenuItem.Text = "Print Custom";
             // 
             // exitToolStripMenuItem
@@ -225,19 +225,8 @@
             // aboutMTListToolStripMenuItem
             // 
             this.aboutMTListToolStripMenuItem.Name = "aboutMTListToolStripMenuItem";
-            this.aboutMTListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutMTListToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.aboutMTListToolStripMenuItem.Text = "About MTList";
-            // 
-            // BtnSave
-            // 
-            this.BtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnSave.Location = new System.Drawing.Point(694, 421);
-            this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(75, 23);
-            this.BtnSave.TabIndex = 2;
-            this.BtnSave.Text = "Save";
-            this.BtnSave.UseVisualStyleBackColor = true;
-            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // fillByToolStrip
             // 
@@ -250,7 +239,7 @@
             this.tslAdd});
             this.fillByToolStrip.Location = new System.Drawing.Point(107, -4);
             this.fillByToolStrip.Name = "fillByToolStrip";
-            this.fillByToolStrip.Size = new System.Drawing.Size(169, 25);
+            this.fillByToolStrip.Size = new System.Drawing.Size(138, 25);
             this.fillByToolStrip.TabIndex = 3;
             this.fillByToolStrip.Text = "fillByToolStrip";
             // 
@@ -276,16 +265,6 @@
             this.toolStripButton1.Text = "Save";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
-            // mTTableTableAdapter
-            // 
-            this.mTTableTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.MTTableTableAdapter = this.mTTableTableAdapter;
-            this.tableAdapterManager.UpdateOrder = MTList.MTLISTDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -298,13 +277,31 @@
             this.tslAdd.Text = "Add";
             this.tslAdd.Click += new System.EventHandler(this.tslAdd_Click);
             // 
+            // mTTableTableAdapter
+            // 
+            this.mTTableTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.MTTableTableAdapter = this.mTTableTableAdapter;
+            this.tableAdapterManager.UpdateOrder = MTList.MTLISTDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // txtTEST
+            // 
+            this.txtTEST.Location = new System.Drawing.Point(638, 297);
+            this.txtTEST.Name = "txtTEST";
+            this.txtTEST.Size = new System.Drawing.Size(100, 20);
+            this.txtTEST.TabIndex = 4;
+            this.txtTEST.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(781, 456);
+            this.Controls.Add(this.txtTEST);
             this.Controls.Add(this.fillByToolStrip);
-            this.Controls.Add(this.BtnSave);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -334,7 +331,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutMTListToolStripMenuItem;
-        private System.Windows.Forms.Button BtnSave;
         private System.Windows.Forms.ToolStripMenuItem printGeneralToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem printToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem printCustomToolStripMenuItem;
@@ -357,6 +353,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripLabel tslAdd;
+        private System.Windows.Forms.TextBox txtTEST;
     }
 }
 
