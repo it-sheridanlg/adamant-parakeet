@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace MTList
     {
         private System.Data.SqlClient.SqlDataAdapter dataAdapter = new System.Data.SqlClient.SqlDataAdapter();
         private BindingSource bindingSource1 = new BindingSource();
+        
         public Form1()
         {
             InitializeComponent();
@@ -24,14 +26,40 @@ namespace MTList
         private void Form1_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'mTLISTDataSet.MTTable' table. You can move, or remove it, as needed.
-            this.mTTableTableAdapter.Fill(this.mTLISTDataSet.MTTable);
-            dataGridView1.DataSource = bindingSource1;
+            
+            mTTableTableAdapter.Fill(this.mTLISTDataSet.MTTable);
+            dataGridView1.DataSource = mTLISTDataSet.MTTable;
           
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
+            SqlConnection myConnection = new SqlConnection("user id=sa;" +
+                                       "password=aft01server;server=192.168.1.213;" +
+                                       "Trusted_Connection=no;" +
+                                       "database=MTList; " +
+                                       "connection timeout=30");
 
+            try
+            {
+                myConnection.Open();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
+
+            try
+            {
+                myConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
+            
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -53,7 +81,10 @@ namespace MTList
         {
             try
             {
-                this.mTTableTableAdapter.FillBy(this.mTLISTDataSet.MTTable);
+                mTTableTableAdapter.GetData();
+                mTTableTableAdapter.FillBy(mTLISTDataSet.MTTable);
+                dataGridView1.DataSource = mTLISTDataSet.MTTable;
+
             }
             catch (System.Exception ex)
             {
@@ -67,10 +98,15 @@ namespace MTList
             try
             {
                 DataTable table = new DataTable();
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = 'insert'
                 table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                dataAdapter.SelectCommand = cmd;
                 dataAdapter.Fill(table);
+                
                 bindingSource1.DataSource = table;
-                //dataAdapter.Update((table)bindingSource1.DataSource);
+                mTTableTableAdapter.GetData();
+                dataAdapter.Update(table);
                 
 
             }
@@ -78,6 +114,19 @@ namespace MTList
             {
                 System.Windows.Forms.MessageBox.Show(ex.Message);
             } 
+        }
+
+        private void fillBy1ToolStripButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.mTTableTableAdapter.FillBy1(this.mTLISTDataSet.MTTable);
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }

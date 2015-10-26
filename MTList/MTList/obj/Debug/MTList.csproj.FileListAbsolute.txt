@@ -10,3 +10,9 @@ c:\users\clint.bobjr\documents\visual studio 2015\Projects\MTList\MTList\obj\Deb
 C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\bin\Debug\MTList.exe.config
 C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\obj\Debug\MTList.exe
 C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\obj\Debug\MTList.pdb
+C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\bin\Debug\MTList.exe
+C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\bin\Debug\MTList.pdb
+C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\obj\Debug\MTList.csprojResolveAssemblyReference.cache
+C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\obj\Debug\MTList.Form1.resources
+C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\obj\Debug\MTList.Properties.Resources.resources
+C:\Users\clint.BOBJR\Documents\GitHub\adamant-parakeet\MTList\MTList\obj\Debug\MTList.csproj.GenerateResource.Cache

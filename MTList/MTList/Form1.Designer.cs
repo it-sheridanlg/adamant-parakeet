@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.mTTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.mTLISTDataSet = new MTList.MTLISTDataSet();
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,8 +48,6 @@
             this.fillByToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.mTTableTableAdapter = new MTList.MTLISTDataSetTableAdapters.MTTableTableAdapter();
-            this.tableAdapterManager = new MTList.MTLISTDataSetTableAdapters.TableAdapterManager();
             this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.driverNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,11 +55,15 @@
             this.trailerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.notesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mTTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.mTLISTDataSet = new MTList.MTLISTDataSet();
+            this.mTTableTableAdapter = new MTList.MTLISTDataSetTableAdapters.MTTableTableAdapter();
+            this.tableAdapterManager = new MTList.MTLISTDataSetTableAdapters.TableAdapterManager();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mTTableBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mTLISTDataSet)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.fillByToolStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mTTableBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mTLISTDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -83,19 +83,9 @@
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 24);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(773, 424);
+            this.dataGridView1.Size = new System.Drawing.Size(781, 432);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // mTTableBindingSource
-            // 
-            this.mTTableBindingSource.DataMember = "MTTable";
-            this.mTTableBindingSource.DataSource = this.mTLISTDataSet;
-            // 
-            // mTLISTDataSet
-            // 
-            this.mTLISTDataSet.DataSetName = "MTLISTDataSet";
-            this.mTLISTDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // menuStrip1
             // 
@@ -104,7 +94,7 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(773, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(781, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -184,7 +174,7 @@
             // BtnSave
             // 
             this.BtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnSave.Location = new System.Drawing.Point(686, 413);
+            this.BtnSave.Location = new System.Drawing.Point(694, 421);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(75, 23);
             this.BtnSave.TabIndex = 2;
@@ -199,9 +189,9 @@
             this.fillByToolStripButton,
             this.toolStripSeparator1,
             this.toolStripButton1});
-            this.fillByToolStrip.Location = new System.Drawing.Point(118, 0);
+            this.fillByToolStrip.Location = new System.Drawing.Point(107, -4);
             this.fillByToolStrip.Name = "fillByToolStrip";
-            this.fillByToolStrip.Size = new System.Drawing.Size(103, 25);
+            this.fillByToolStrip.Size = new System.Drawing.Size(134, 25);
             this.fillByToolStrip.TabIndex = 3;
             this.fillByToolStrip.Text = "fillByToolStrip";
             // 
@@ -226,16 +216,6 @@
             this.toolStripButton1.Size = new System.Drawing.Size(35, 22);
             this.toolStripButton1.Text = "Save";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
-            // mTTableTableAdapter
-            // 
-            this.mTTableTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.MTTableTableAdapter = this.mTTableTableAdapter;
-            this.tableAdapterManager.UpdateOrder = MTList.MTLISTDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // iDDataGridViewTextBoxColumn
             // 
@@ -281,11 +261,31 @@
             this.statusDataGridViewTextBoxColumn.HeaderText = "Status";
             this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
             // 
+            // mTTableBindingSource
+            // 
+            this.mTTableBindingSource.DataMember = "MTTable";
+            this.mTTableBindingSource.DataSource = this.mTLISTDataSet;
+            // 
+            // mTLISTDataSet
+            // 
+            this.mTLISTDataSet.DataSetName = "MTLISTDataSet";
+            this.mTLISTDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // mTTableTableAdapter
+            // 
+            this.mTTableTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.MTTableTableAdapter = this.mTTableTableAdapter;
+            this.tableAdapterManager.UpdateOrder = MTList.MTLISTDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(773, 448);
+            this.ClientSize = new System.Drawing.Size(781, 456);
             this.Controls.Add(this.fillByToolStrip);
             this.Controls.Add(this.BtnSave);
             this.Controls.Add(this.dataGridView1);
@@ -295,12 +295,12 @@
             this.Text = "MTList";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mTTableBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mTLISTDataSet)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.fillByToolStrip.ResumeLayout(false);
             this.fillByToolStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mTTableBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mTLISTDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
