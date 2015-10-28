@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.SplitContainer splitContainer1;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -67,14 +68,39 @@
             this.mTLISTDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mTTable1TableAdapter = new MTList.MTLISTDataSetTableAdapters.MTTable1TableAdapter();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.colorDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.notesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.trailerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.driverNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.driverNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.trailerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.notesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colorDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.mTHomeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.mTHomeTableAdapter = new MTList.MTLISTDataSetTableAdapters.MTHomeTableAdapter();
+            this.iDDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.driverNameDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.homeCityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.homeStateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.whenDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.howLongDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.notesDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colorDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.mTPartBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.mTPartTableAdapter = new MTList.MTLISTDataSetTableAdapters.MTPartTableAdapter();
+            this.iDDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.driverNameDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cityDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stateDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.trailerDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.avaliableSpaceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.destinationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colorDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mTTable1BindingSource)).BeginInit();
@@ -82,6 +108,22 @@
             ((System.ComponentModel.ISupportInitialize)(this.mTTableBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mTLISTDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(splitContainer1)).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
+            this.splitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mTHomeBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mTPartBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -93,7 +135,7 @@
             this.tsSave});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1073, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1491, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -225,12 +267,9 @@
             // dataGridView2
             // 
             this.dataGridView2.AllowUserToOrderColumns = true;
-            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView2.AutoGenerateColumns = false;
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -244,11 +283,12 @@
             this.statusDataGridViewTextBoxColumn1,
             this.colorDataGridViewTextBoxColumn});
             this.dataGridView2.DataSource = this.mTTable1BindingSource;
+            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView2.EnableHeadersVisualStyles = false;
             this.dataGridView2.GridColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.dataGridView2.Location = new System.Drawing.Point(528, 24);
+            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(518, 441);
+            this.dataGridView2.Size = new System.Drawing.Size(748, 402);
             this.dataGridView2.TabIndex = 3;
             // 
             // iDDataGridViewTextBoxColumn1
@@ -352,7 +392,7 @@
             this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -366,62 +406,14 @@
             this.statusDataGridViewTextBoxColumn,
             this.colorDataGridViewTextBoxColumn1});
             this.dataGridView1.DataSource = this.mTTableBindingSource;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.dataGridView1.Location = new System.Drawing.Point(1, 24);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(521, 441);
+            this.dataGridView1.Size = new System.Drawing.Size(741, 402);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // colorDataGridViewTextBoxColumn1
-            // 
-            this.colorDataGridViewTextBoxColumn1.DataPropertyName = "Color";
-            this.colorDataGridViewTextBoxColumn1.HeaderText = "Color";
-            this.colorDataGridViewTextBoxColumn1.Name = "colorDataGridViewTextBoxColumn1";
-            this.colorDataGridViewTextBoxColumn1.Width = 56;
-            // 
-            // statusDataGridViewTextBoxColumn
-            // 
-            this.statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
-            this.statusDataGridViewTextBoxColumn.HeaderText = "Status";
-            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
-            this.statusDataGridViewTextBoxColumn.Width = 62;
-            // 
-            // notesDataGridViewTextBoxColumn
-            // 
-            this.notesDataGridViewTextBoxColumn.DataPropertyName = "Notes";
-            this.notesDataGridViewTextBoxColumn.HeaderText = "Notes";
-            this.notesDataGridViewTextBoxColumn.Name = "notesDataGridViewTextBoxColumn";
-            this.notesDataGridViewTextBoxColumn.Width = 60;
-            // 
-            // trailerDataGridViewTextBoxColumn
-            // 
-            this.trailerDataGridViewTextBoxColumn.DataPropertyName = "Trailer";
-            this.trailerDataGridViewTextBoxColumn.HeaderText = "Trailer";
-            this.trailerDataGridViewTextBoxColumn.Name = "trailerDataGridViewTextBoxColumn";
-            this.trailerDataGridViewTextBoxColumn.Width = 61;
-            // 
-            // stateDataGridViewTextBoxColumn
-            // 
-            this.stateDataGridViewTextBoxColumn.DataPropertyName = "State";
-            this.stateDataGridViewTextBoxColumn.HeaderText = "State";
-            this.stateDataGridViewTextBoxColumn.Name = "stateDataGridViewTextBoxColumn";
-            this.stateDataGridViewTextBoxColumn.Width = 57;
-            // 
-            // cityDataGridViewTextBoxColumn
-            // 
-            this.cityDataGridViewTextBoxColumn.DataPropertyName = "City";
-            this.cityDataGridViewTextBoxColumn.HeaderText = "City";
-            this.cityDataGridViewTextBoxColumn.Name = "cityDataGridViewTextBoxColumn";
-            this.cityDataGridViewTextBoxColumn.Width = 49;
-            // 
-            // driverNameDataGridViewTextBoxColumn
-            // 
-            this.driverNameDataGridViewTextBoxColumn.DataPropertyName = "DriverName";
-            this.driverNameDataGridViewTextBoxColumn.HeaderText = "DriverName";
-            this.driverNameDataGridViewTextBoxColumn.Name = "driverNameDataGridViewTextBoxColumn";
-            this.driverNameDataGridViewTextBoxColumn.Width = 88;
             // 
             // iDDataGridViewTextBoxColumn
             // 
@@ -432,17 +424,302 @@
             this.iDDataGridViewTextBoxColumn.Visible = false;
             this.iDDataGridViewTextBoxColumn.Width = 43;
             // 
+            // driverNameDataGridViewTextBoxColumn
+            // 
+            this.driverNameDataGridViewTextBoxColumn.DataPropertyName = "DriverName";
+            this.driverNameDataGridViewTextBoxColumn.HeaderText = "DriverName";
+            this.driverNameDataGridViewTextBoxColumn.Name = "driverNameDataGridViewTextBoxColumn";
+            this.driverNameDataGridViewTextBoxColumn.Width = 88;
+            // 
+            // cityDataGridViewTextBoxColumn
+            // 
+            this.cityDataGridViewTextBoxColumn.DataPropertyName = "City";
+            this.cityDataGridViewTextBoxColumn.HeaderText = "City";
+            this.cityDataGridViewTextBoxColumn.Name = "cityDataGridViewTextBoxColumn";
+            this.cityDataGridViewTextBoxColumn.Width = 49;
+            // 
+            // stateDataGridViewTextBoxColumn
+            // 
+            this.stateDataGridViewTextBoxColumn.DataPropertyName = "State";
+            this.stateDataGridViewTextBoxColumn.HeaderText = "State";
+            this.stateDataGridViewTextBoxColumn.Name = "stateDataGridViewTextBoxColumn";
+            this.stateDataGridViewTextBoxColumn.Width = 57;
+            // 
+            // trailerDataGridViewTextBoxColumn
+            // 
+            this.trailerDataGridViewTextBoxColumn.DataPropertyName = "Trailer";
+            this.trailerDataGridViewTextBoxColumn.HeaderText = "Trailer";
+            this.trailerDataGridViewTextBoxColumn.Name = "trailerDataGridViewTextBoxColumn";
+            this.trailerDataGridViewTextBoxColumn.Width = 61;
+            // 
+            // notesDataGridViewTextBoxColumn
+            // 
+            this.notesDataGridViewTextBoxColumn.DataPropertyName = "Notes";
+            this.notesDataGridViewTextBoxColumn.HeaderText = "Notes";
+            this.notesDataGridViewTextBoxColumn.Name = "notesDataGridViewTextBoxColumn";
+            this.notesDataGridViewTextBoxColumn.Width = 60;
+            // 
+            // statusDataGridViewTextBoxColumn
+            // 
+            this.statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
+            this.statusDataGridViewTextBoxColumn.HeaderText = "Status";
+            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
+            this.statusDataGridViewTextBoxColumn.Width = 62;
+            // 
+            // colorDataGridViewTextBoxColumn1
+            // 
+            this.colorDataGridViewTextBoxColumn1.DataPropertyName = "Color";
+            this.colorDataGridViewTextBoxColumn1.HeaderText = "Color";
+            this.colorDataGridViewTextBoxColumn1.Name = "colorDataGridViewTextBoxColumn1";
+            this.colorDataGridViewTextBoxColumn1.Width = 56;
+            // 
+            // splitContainer1
+            // 
+            splitContainer1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer1.IsSplitterFixed = true;
+            splitContainer1.Location = new System.Drawing.Point(0, 0);
+            splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            splitContainer1.Panel1.Controls.Add(this.dataGridView1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            splitContainer1.Panel2.Controls.Add(this.dataGridView2);
+            splitContainer1.Size = new System.Drawing.Size(1491, 402);
+            splitContainer1.SplitterDistance = 741;
+            splitContainer1.SplitterWidth = 2;
+            splitContainer1.TabIndex = 5;
+            splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer2.IsSplitterFixed = true;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 29);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(splitContainer1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.BackColor = System.Drawing.Color.White;
+            this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
+            this.splitContainer2.Size = new System.Drawing.Size(1491, 615);
+            this.splitContainer2.SplitterDistance = 402;
+            this.splitContainer2.SplitterWidth = 1;
+            this.splitContainer2.TabIndex = 7;
+            // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.IsSplitterFixed = true;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.dataGridView3);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.dataGridView4);
+            this.splitContainer3.Size = new System.Drawing.Size(1491, 212);
+            this.splitContainer3.SplitterDistance = 741;
+            this.splitContainer3.SplitterWidth = 2;
+            this.splitContainer3.TabIndex = 0;
+            // 
+            // dataGridView3
+            // 
+            this.dataGridView3.AutoGenerateColumns = false;
+            this.dataGridView3.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.iDDataGridViewTextBoxColumn2,
+            this.driverNameDataGridViewTextBoxColumn2,
+            this.homeCityDataGridViewTextBoxColumn,
+            this.homeStateDataGridViewTextBoxColumn,
+            this.whenDataGridViewTextBoxColumn,
+            this.howLongDataGridViewTextBoxColumn,
+            this.notesDataGridViewTextBoxColumn2,
+            this.colorDataGridViewTextBoxColumn2});
+            this.dataGridView3.DataSource = this.mTHomeBindingSource;
+            this.dataGridView3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView3.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.Size = new System.Drawing.Size(741, 212);
+            this.dataGridView3.TabIndex = 0;
+            // 
+            // mTHomeBindingSource
+            // 
+            this.mTHomeBindingSource.DataMember = "MTHome";
+            this.mTHomeBindingSource.DataSource = this.mTLISTDataSetBindingSource;
+            // 
+            // mTHomeTableAdapter
+            // 
+            this.mTHomeTableAdapter.ClearBeforeFill = true;
+            // 
+            // iDDataGridViewTextBoxColumn2
+            // 
+            this.iDDataGridViewTextBoxColumn2.DataPropertyName = "ID";
+            this.iDDataGridViewTextBoxColumn2.HeaderText = "ID";
+            this.iDDataGridViewTextBoxColumn2.Name = "iDDataGridViewTextBoxColumn2";
+            this.iDDataGridViewTextBoxColumn2.ReadOnly = true;
+            this.iDDataGridViewTextBoxColumn2.Visible = false;
+            // 
+            // driverNameDataGridViewTextBoxColumn2
+            // 
+            this.driverNameDataGridViewTextBoxColumn2.DataPropertyName = "DriverName";
+            this.driverNameDataGridViewTextBoxColumn2.HeaderText = "DriverName";
+            this.driverNameDataGridViewTextBoxColumn2.Name = "driverNameDataGridViewTextBoxColumn2";
+            this.driverNameDataGridViewTextBoxColumn2.Width = 88;
+            // 
+            // homeCityDataGridViewTextBoxColumn
+            // 
+            this.homeCityDataGridViewTextBoxColumn.DataPropertyName = "HomeCity";
+            this.homeCityDataGridViewTextBoxColumn.HeaderText = "HomeCity";
+            this.homeCityDataGridViewTextBoxColumn.Name = "homeCityDataGridViewTextBoxColumn";
+            this.homeCityDataGridViewTextBoxColumn.Width = 77;
+            // 
+            // homeStateDataGridViewTextBoxColumn
+            // 
+            this.homeStateDataGridViewTextBoxColumn.DataPropertyName = "HomeState";
+            this.homeStateDataGridViewTextBoxColumn.HeaderText = "HomeState";
+            this.homeStateDataGridViewTextBoxColumn.Name = "homeStateDataGridViewTextBoxColumn";
+            this.homeStateDataGridViewTextBoxColumn.Width = 85;
+            // 
+            // whenDataGridViewTextBoxColumn
+            // 
+            this.whenDataGridViewTextBoxColumn.DataPropertyName = "When";
+            this.whenDataGridViewTextBoxColumn.HeaderText = "When";
+            this.whenDataGridViewTextBoxColumn.Name = "whenDataGridViewTextBoxColumn";
+            this.whenDataGridViewTextBoxColumn.Width = 61;
+            // 
+            // howLongDataGridViewTextBoxColumn
+            // 
+            this.howLongDataGridViewTextBoxColumn.DataPropertyName = "HowLong";
+            this.howLongDataGridViewTextBoxColumn.HeaderText = "HowLong";
+            this.howLongDataGridViewTextBoxColumn.Name = "howLongDataGridViewTextBoxColumn";
+            this.howLongDataGridViewTextBoxColumn.Width = 78;
+            // 
+            // notesDataGridViewTextBoxColumn2
+            // 
+            this.notesDataGridViewTextBoxColumn2.DataPropertyName = "Notes";
+            this.notesDataGridViewTextBoxColumn2.HeaderText = "Notes";
+            this.notesDataGridViewTextBoxColumn2.Name = "notesDataGridViewTextBoxColumn2";
+            this.notesDataGridViewTextBoxColumn2.Width = 60;
+            // 
+            // colorDataGridViewTextBoxColumn2
+            // 
+            this.colorDataGridViewTextBoxColumn2.DataPropertyName = "Color";
+            this.colorDataGridViewTextBoxColumn2.HeaderText = "Color";
+            this.colorDataGridViewTextBoxColumn2.Name = "colorDataGridViewTextBoxColumn2";
+            this.colorDataGridViewTextBoxColumn2.Width = 56;
+            // 
+            // dataGridView4
+            // 
+            this.dataGridView4.AutoGenerateColumns = false;
+            this.dataGridView4.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView4.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.iDDataGridViewTextBoxColumn3,
+            this.driverNameDataGridViewTextBoxColumn3,
+            this.cityDataGridViewTextBoxColumn2,
+            this.stateDataGridViewTextBoxColumn2,
+            this.trailerDataGridViewTextBoxColumn2,
+            this.avaliableSpaceDataGridViewTextBoxColumn,
+            this.destinationDataGridViewTextBoxColumn,
+            this.colorDataGridViewTextBoxColumn3});
+            this.dataGridView4.DataSource = this.mTPartBindingSource;
+            this.dataGridView4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView4.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView4.Name = "dataGridView4";
+            this.dataGridView4.Size = new System.Drawing.Size(748, 212);
+            this.dataGridView4.TabIndex = 0;
+            // 
+            // mTPartBindingSource
+            // 
+            this.mTPartBindingSource.DataMember = "MTPart";
+            this.mTPartBindingSource.DataSource = this.mTLISTDataSetBindingSource;
+            // 
+            // mTPartTableAdapter
+            // 
+            this.mTPartTableAdapter.ClearBeforeFill = true;
+            // 
+            // iDDataGridViewTextBoxColumn3
+            // 
+            this.iDDataGridViewTextBoxColumn3.DataPropertyName = "ID";
+            this.iDDataGridViewTextBoxColumn3.HeaderText = "ID";
+            this.iDDataGridViewTextBoxColumn3.Name = "iDDataGridViewTextBoxColumn3";
+            this.iDDataGridViewTextBoxColumn3.ReadOnly = true;
+            this.iDDataGridViewTextBoxColumn3.Visible = false;
+            // 
+            // driverNameDataGridViewTextBoxColumn3
+            // 
+            this.driverNameDataGridViewTextBoxColumn3.DataPropertyName = "DriverName";
+            this.driverNameDataGridViewTextBoxColumn3.HeaderText = "DriverName";
+            this.driverNameDataGridViewTextBoxColumn3.Name = "driverNameDataGridViewTextBoxColumn3";
+            this.driverNameDataGridViewTextBoxColumn3.Width = 88;
+            // 
+            // cityDataGridViewTextBoxColumn2
+            // 
+            this.cityDataGridViewTextBoxColumn2.DataPropertyName = "City";
+            this.cityDataGridViewTextBoxColumn2.HeaderText = "City";
+            this.cityDataGridViewTextBoxColumn2.Name = "cityDataGridViewTextBoxColumn2";
+            this.cityDataGridViewTextBoxColumn2.Width = 49;
+            // 
+            // stateDataGridViewTextBoxColumn2
+            // 
+            this.stateDataGridViewTextBoxColumn2.DataPropertyName = "State";
+            this.stateDataGridViewTextBoxColumn2.HeaderText = "State";
+            this.stateDataGridViewTextBoxColumn2.Name = "stateDataGridViewTextBoxColumn2";
+            this.stateDataGridViewTextBoxColumn2.Width = 57;
+            // 
+            // trailerDataGridViewTextBoxColumn2
+            // 
+            this.trailerDataGridViewTextBoxColumn2.DataPropertyName = "Trailer";
+            this.trailerDataGridViewTextBoxColumn2.HeaderText = "Trailer";
+            this.trailerDataGridViewTextBoxColumn2.Name = "trailerDataGridViewTextBoxColumn2";
+            this.trailerDataGridViewTextBoxColumn2.Width = 61;
+            // 
+            // avaliableSpaceDataGridViewTextBoxColumn
+            // 
+            this.avaliableSpaceDataGridViewTextBoxColumn.DataPropertyName = "AvaliableSpace";
+            this.avaliableSpaceDataGridViewTextBoxColumn.HeaderText = "AvaliableSpace";
+            this.avaliableSpaceDataGridViewTextBoxColumn.Name = "avaliableSpaceDataGridViewTextBoxColumn";
+            this.avaliableSpaceDataGridViewTextBoxColumn.Width = 106;
+            // 
+            // destinationDataGridViewTextBoxColumn
+            // 
+            this.destinationDataGridViewTextBoxColumn.DataPropertyName = "Destination";
+            this.destinationDataGridViewTextBoxColumn.HeaderText = "Destination";
+            this.destinationDataGridViewTextBoxColumn.Name = "destinationDataGridViewTextBoxColumn";
+            this.destinationDataGridViewTextBoxColumn.Width = 85;
+            // 
+            // colorDataGridViewTextBoxColumn3
+            // 
+            this.colorDataGridViewTextBoxColumn3.DataPropertyName = "Color";
+            this.colorDataGridViewTextBoxColumn3.HeaderText = "Color";
+            this.colorDataGridViewTextBoxColumn3.Name = "colorDataGridViewTextBoxColumn3";
+            this.colorDataGridViewTextBoxColumn3.Width = 56;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1073, 571);
-            this.Controls.Add(this.dataGridView2);
+            this.ClientSize = new System.Drawing.Size(1491, 656);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.txtTEST);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.splitContainer2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -457,6 +734,22 @@
             ((System.ComponentModel.ISupportInitialize)(this.mTTableBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mTLISTDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(splitContainer1)).EndInit();
+            splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mTHomeBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mTPartBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -507,6 +800,30 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn notesDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn colorDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.BindingSource mTHomeBindingSource;
+        private MTLISTDataSetTableAdapters.MTHomeTableAdapter mTHomeTableAdapter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn driverNameDataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn homeCityDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn homeStateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn whenDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn howLongDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn notesDataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colorDataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridView dataGridView4;
+        private System.Windows.Forms.BindingSource mTPartBindingSource;
+        private MTLISTDataSetTableAdapters.MTPartTableAdapter mTPartTableAdapter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn driverNameDataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cityDataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn stateDataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn trailerDataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn avaliableSpaceDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn destinationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colorDataGridViewTextBoxColumn3;
     }
 }
 
