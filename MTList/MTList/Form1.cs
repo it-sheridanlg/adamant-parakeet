@@ -279,40 +279,80 @@ namespace MTList
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             DateTime datenow = new DateTime();
+            System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
             
+
             if (checkBox1.Checked == true)
             {
-                //do
-                //{
-                //    datenow = DateTime.Now;
-                //    do
-                //    {
 
-                //    } while ();
-                    
-                //} while (checkBox1.Checked == true);
+                //300000;//5 minutes
+                timer1.Interval = 300000;//5 minutes
+                    timer1.Tick += new System.EventHandler(timer1_Tick);
+                    timer1.Start();
+                    datenow = DateTime.Now;
+                MessageBox.Show("Timer Started");
 
+                
+                
+            }
+            else if (checkBox1.Checked == false)
+            {
+                timer1.Stop();
+                timer1.Enabled = false;              
+                MessageBox.Show("Timer Stopped");
             }
                 
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
             //do whatever you want 
+            MessageBox.Show("refresh called");
             RefreshMyForm();
         }
 
         private void RefreshMyForm()
         {
+            MessageBox.Show("refresh started");
+            // Refresh the data and re-color
+            try
+            {
 
-            //update form with latest Data
-            ds = new DataSet();
-            dataAdapter.Fill(ds, "MTTable");
-            dataGridView1.DataSource = ds.Tables[0];
+                // MTList Left Top Datagridview1
+                ds = new DataSet();
+                dataAdapter.Fill(ds, "MTTable");
+                dataGridView1.DataSource = ds.Tables[0];
+
+                // MTList1 Right Top Datagridview2
+                ds1 = new DataSet();
+                dataAdapter1.Fill(ds1, "MTTable1");
+                dataGridView2.DataSource = ds1.Tables[0];
+
+                // MTHome Left Bottom Datagridview3
+                dsHome = new DataSet();
+                dataAdapterHome.Fill(dsHome, "MTHome");
+                dataGridView3.DataSource = dsHome.Tables[0];
+
+                // MTPart Right Bottom Datagridview4
+                dsPart = new DataSet();
+                dataAdapterPart.Fill(dsPart, "MTPart");
+                dataGridView4.DataSource = dsPart.Tables[0];
+
+                // Colors the rows the defined colors in the database.
+                RowsColor();
+
+
+
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
 
         }
         public void RowsColor()
         {
             Color col = new Color();
+
             string tempColor;
             string strColor;
             
@@ -321,9 +361,10 @@ namespace MTList
          // Color for DataGridView1 -MTTable
             for (i = 0; i < dataGridView1.Rows.Count; i++)
             {
-                
                 tempColor = dataGridView1.Rows[i].Cells[7].FormattedValue.ToString();
+
                 strColor = tempColor.ToUpper();
+
                 bool y = strColor.Contains("Y");
                 bool r = strColor.Contains("R");
                 bool g = strColor.Contains("G");
@@ -334,37 +375,22 @@ namespace MTList
 
 
                 if (y)
-                {
-                    col = Color.Yellow;
-                    
-                }
+                { col = Color.Yellow; }
                 else if (r)
-                {
-                    col = Color.Red;
-                    dataGridView1.Rows[i].DefaultCellStyle.ForeColor = Color.White;
-
-                }
+                { col = Color.Red; }
                 else if (g)
-                {
-                    col = Color.Green;
-                }
+                { col = Color.Green; }
                 else if (b)
-                {
-                    col = Color.LightBlue;
-                }
+                { col = Color.LightBlue; }
                 else if (w)
-                {
-                    col = Color.White;
-                }
+                { col = Color.White; }
                 else if (d)
                 {
                     col = Color.Black;
-                    dataGridView1.Rows[i].DefaultCellStyle.ForeColor = Color.White;
+                    dataGridView1.Rows[i].DefaultCellStyle.ForeColor = Color.White; 
                 }
                 else
-                {
-                    col = Color.White;
-                }
+                { col = Color.White; }
 
 
                 dataGridView1.Rows[i].DefaultCellStyle.BackColor = col;
@@ -374,7 +400,9 @@ namespace MTList
             for (i = 0; i < dataGridView2.Rows.Count; i++)
             {
                 tempColor = dataGridView2.Rows[i].Cells[7].FormattedValue.ToString();
+
                 strColor = tempColor.ToUpper();
+
                 bool y = strColor.Contains("Y");
                 bool r = strColor.Contains("R");
                 bool g = strColor.Contains("G");
@@ -383,34 +411,22 @@ namespace MTList
                 bool d = strColor.Contains("D");
 
                 if (y)
-                {
-                    col = Color.Yellow;
-                }
+                { col = Color.Yellow;  }
                 else if (r)
-                {
-                    col = Color.Red;
-                }
+                { col = Color.Red; }
                 else if (g)
-                {
-                    col = Color.Green;
-                }
+                { col = Color.Green; }
                 else if (b)
-                {
-                    col = Color.LightBlue;
-                }
+                { col = Color.LightBlue; }
                 else if (w)
-                {
-                    col = Color.White;
-                }
+                { col = Color.White; }
                 else if (d)
                 {
                     col = Color.Black;
                     dataGridView2.Rows[i].DefaultCellStyle.ForeColor = Color.White;
                 }
                 else
-                {
-                    col = Color.White;
-                }
+                { col = Color.White; }
 
 
                 dataGridView2.Rows[i].DefaultCellStyle.BackColor = col;
@@ -420,7 +436,9 @@ namespace MTList
             for (i = 0; i < dataGridView3.Rows.Count; i++)
             {
                 tempColor = dataGridView3.Rows[i].Cells[7].FormattedValue.ToString();
+
                 strColor = tempColor.ToUpper();
+
                 bool y = strColor.Contains("Y");
                 bool r = strColor.Contains("R");
                 bool g = strColor.Contains("G");
@@ -429,34 +447,22 @@ namespace MTList
                 bool d = strColor.Contains("D");
 
                 if (y)
-                {
-                    col = Color.Yellow;
-                }
+                { col = Color.Yellow; }
                 else if (r)
-                {
-                    col = Color.Red;
-                }
+                { col = Color.Red; }
                 else if (g)
-                {
-                    col = Color.Green;
-                }
+                { col = Color.Green; }
                 else if (b)
-                {
-                    col = Color.LightBlue;
-                }
+                { col = Color.LightBlue; }
                 else if (w)
-                {
-                    col = Color.White;
-                }
+                { col = Color.White; }
                 else if (d)
                 {
                     col = Color.Black;
                     dataGridView3.Rows[i].DefaultCellStyle.ForeColor = Color.White;
                 }
                 else
-                {
-                    col = Color.White;
-                }
+                { col = Color.White; }
 
 
                 dataGridView3.Rows[i].DefaultCellStyle.BackColor = col;
@@ -466,7 +472,9 @@ namespace MTList
             for (i = 0; i < dataGridView4.Rows.Count; i++)
             {
                 tempColor = dataGridView4.Rows[i].Cells[7].FormattedValue.ToString();
+
                 strColor = tempColor.ToUpper();
+
                 bool y = strColor.Contains("Y");
                 bool r = strColor.Contains("R");
                 bool g = strColor.Contains("G");
@@ -479,33 +487,23 @@ namespace MTList
                     col = Color.Yellow;
                 }
                 else if (r)
-                {
-                    col = Color.Red;
-                }
+                { col = Color.Red; }
                 else if (g)
-                {
-                    col = Color.Green;
-                }
+                { col = Color.Green; }
                 else if (b)
-                {
-                    col = Color.LightBlue;
-                }
+                { col = Color.LightBlue; }
                 else if (w)
-                {
-                    col = Color.White;
-                }
+                { col = Color.White; }
                 else if (d)
                 {
                     col = Color.Black;
                     dataGridView4.Rows[i].DefaultCellStyle.ForeColor = Color.White;
                 }
                 else
-                {
-                    col = Color.White;
-                }
-
+                { col = Color.White; }
 
                 dataGridView4.Rows[i].DefaultCellStyle.BackColor = col;
+
             }
 
         }
