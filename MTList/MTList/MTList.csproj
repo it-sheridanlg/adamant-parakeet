@@ -57,6 +57,9 @@
     <Compile Include="Form2.Designer.cs">
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
+    <Compile Include="MTLISTDataSet.cs">
+      <DependentUpon>MTLISTDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="MTLISTDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
