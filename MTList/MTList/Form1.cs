@@ -31,6 +31,7 @@ namespace MTList
         private SqlConnection con1;
         private SqlConnection conHome;
         private SqlConnection conPart;
+        private System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
 
         public Form1()
         {
@@ -100,20 +101,6 @@ namespace MTList
                 System.Windows.Forms.MessageBox.Show(ex.Message);
             }
         }
-
-        private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-        // Close all open database connections
-            con.Close();
-            con1.Close();
-            conHome.Close();
-            conPart.Close();
-            MessageBox.Show("works");
-            
-
-
-            }
-
 
     private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -272,42 +259,41 @@ namespace MTList
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            // Close all open database connections
             con.Close();
-           
+            con1.Close();
+            conHome.Close();
+            conPart.Close();
+
+
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            DateTime datenow = new DateTime();
-            System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
+          
+            
             
 
             if (checkBox1.Checked == true)
             {
-
-                //300000;//5 minutes
-                timer1.Interval = 300000;//5 minutes
-                    timer1.Tick += new System.EventHandler(timer1_Tick);
-                    timer1.Start();
-                    datenow = DateTime.Now;
-                MessageBox.Show("Timer Started");
-
-                
-                
+              timer1.Interval = 300000;//5 minutes
+              timer1.Tick += new System.EventHandler(timer1_Tick);
+              timer1.Start();
             }
-            else if (checkBox1.Checked == false)
-            {
-                timer1.Stop();
-                timer1.Enabled = false;              
-                MessageBox.Show("Timer Stopped");
-            }
+            else
+            { timer1.Stop(); }
                 
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
+            MessageBox.Show("TICK!");
             //do whatever you want 
-            MessageBox.Show("refresh called");
-            RefreshMyForm();
+            if (checkBox1.Checked == true)
+            {
+                MessageBox.Show("refresh called");
+                RefreshMyForm();
+            }
+            
         }
 
         private void RefreshMyForm()
