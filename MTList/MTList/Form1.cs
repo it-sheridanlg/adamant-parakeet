@@ -19,10 +19,10 @@ namespace MTList
         private System.Data.SqlClient.SqlDataAdapter dataAdapter1;
         private System.Data.SqlClient.SqlDataAdapter dataAdapterHome;
         private System.Data.SqlClient.SqlDataAdapter dataAdapterPart;
-        private DataSet ds;
-        private DataSet ds1;
-        private DataSet dsHome;
-        private DataSet dsPart;
+        private DataSet ds, ds1, dsHome, dsPart;
+        //private DataSet ds1;
+        //private DataSet dsHome;
+        //private DataSet dsPart;
         private SqlCommandBuilder cmdbl;
         private SqlCommandBuilder cmdbl1;
         private SqlCommandBuilder cmdblHome;
@@ -55,7 +55,7 @@ namespace MTList
                 con = new SqlConnection();
                 con.ConnectionString = @"server=192.168.1.213;Integrated Security=true;Initial Catalog=MTList";
                 con.Open();
-                dataAdapter = new System.Data.SqlClient.SqlDataAdapter("SELECT ID,DriverName,City,State,Trailer,Notes,Status,Color from dbo.MTTable", con);
+                dataAdapter = new System.Data.SqlClient.SqlDataAdapter("SELECT ID,DriverName,City,State,Trailer,Notes,Status,Color,colSortint from dbo.MTTable", con);
                 ds = new DataSet();
                 dataAdapter.Fill(ds, "MTTable");
                 dataGridView1.DataSource = ds.Tables[0];
@@ -64,7 +64,7 @@ namespace MTList
                 con1 = new SqlConnection();
                 con1.ConnectionString = @"server=192.168.1.213;Integrated Security=true;Initial Catalog=MTList";
                 con1.Open();
-                dataAdapter1 = new System.Data.SqlClient.SqlDataAdapter("SELECT ID,DriverName,City,State,Trailer,Notes,Status,Color from dbo.MTTable1", con1);
+                dataAdapter1 = new System.Data.SqlClient.SqlDataAdapter("SELECT ID,DriverName,City,State,Trailer,Notes,Status,Color,colSortint from dbo.MTTable1", con1);
                 ds1 = new DataSet();
                 dataAdapter1.Fill(ds1, "MTTable1");
                 dataGridView2.DataSource = ds1.Tables[0];
@@ -86,7 +86,12 @@ namespace MTList
                 dsPart = new DataSet();
                 dataAdapterPart.Fill(dsPart, "MTPart");
                 dataGridView4.DataSource = dsPart.Tables[0];
+                DataGridViewColumn sort = new DataGridViewColumn();
+                // Sort
+                SortIt();
+                
 
+             // Set saved
                 unsaved = false;
 
 
@@ -104,7 +109,13 @@ namespace MTList
             }
         }
 
-    private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SortIt()
+        {
+            dataGridView1.Sort(dataGridView1.Columns[8], ListSortDirection.Ascending);
+            dataGridView2.Sort(dataGridView2.Columns[8], ListSortDirection.Ascending);
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
             this.Close();
@@ -160,58 +171,22 @@ namespace MTList
 
         private void tsRefresh_Click(object sender, EventArgs e)
         {
-            // Refresh the data and re-color
-            try
-            {
+         // Refresh the data and re-color
+            RefreshIt();
 
-             // MTList Left Top Datagridview1
-                ds = new DataSet();
-                dataAdapter.Fill(ds, "MTTable");
-                dataGridView1.DataSource = ds.Tables[0];
-
-             // MTList1 Right Top Datagridview2
-                ds1 = new DataSet();
-                dataAdapter1.Fill(ds1, "MTTable1");
-                dataGridView2.DataSource = ds1.Tables[0];
-
-             // MTHome Left Bottom Datagridview3
-                dsHome = new DataSet();
-                dataAdapterHome.Fill(dsHome, "MTHome");
-                dataGridView3.DataSource = dsHome.Tables[0];
-
-             // MTPart Right Bottom Datagridview4
-                dsPart = new DataSet();
-                dataAdapterPart.Fill(dsPart, "MTPart");
-                dataGridView4.DataSource = dsPart.Tables[0];
-
-             // Colors the rows the defined colors in the database.
-                RowsColor();
-
-
-
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
-
+            // Sort
+            SortIt();
         }
 
         private void tsSave_Click(object sender, EventArgs e)
         {
-            try
-            {
              // Save new Data 
                 SaveIt();
 
              // Refresh The Form
                 RefreshIt();
 
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
+            
         }
 
         private void aboutMTListToolStripMenuItem_Click(object sender, EventArgs e)
@@ -237,31 +212,44 @@ namespace MTList
 
         private void SaveIt()
         {
-            // Change Focus
-            this.ActiveControl = txtTEST;
 
-            // Save new data to database -MTTable
-            cmdbl = new SqlCommandBuilder(dataAdapter);
-            dataAdapter.AcceptChangesDuringUpdate = true;
-            dataAdapter.Update(ds, "MTTable");
 
-            // Save new data to database -MTTable1
-            cmdbl1 = new SqlCommandBuilder(dataAdapter1);
-            dataAdapter1.AcceptChangesDuringUpdate = true;
-            dataAdapter1.Update(ds1, "MTTable1");
 
-            // Save new data to database -MTHome
-            cmdblHome = new SqlCommandBuilder(dataAdapterHome);
-            dataAdapterHome.AcceptChangesDuringUpdate = true;
-            dataAdapterHome.Update(dsHome, "MTHome");
+            try
+            {
+                // Change Focus
+                this.ActiveControl = txtTEST;
 
-            // Save new data to database -MTPart
-            cmdblPart = new SqlCommandBuilder(dataAdapterPart);
-            dataAdapterPart.AcceptChangesDuringUpdate = true;
-            dataAdapterPart.Update(dsPart, "MTPart");
+                // Save new data to database -MTTable
+                cmdbl = new SqlCommandBuilder(dataAdapter);
+                dataAdapter.AcceptChangesDuringUpdate = true;
+                dataAdapter.Update(ds, "MTTable");
 
-            // Note that data has been saved
-            unsaved = false;
+                // Save new data to database -MTTable1
+                cmdbl1 = new SqlCommandBuilder(dataAdapter1);
+                dataAdapter1.AcceptChangesDuringUpdate = true;
+                dataAdapter1.Update(ds1, "MTTable1");
+
+                // Save new data to database -MTHome
+                cmdblHome = new SqlCommandBuilder(dataAdapterHome);
+                dataAdapterHome.AcceptChangesDuringUpdate = true;
+                dataAdapterHome.Update(dsHome, "MTHome");
+
+                // Save new data to database -MTPart
+                cmdblPart = new SqlCommandBuilder(dataAdapterPart);
+                dataAdapterPart.AcceptChangesDuringUpdate = true;
+                dataAdapterPart.Update(dsPart, "MTPart");
+
+                // Note that data has been saved
+                unsaved = false;
+                // Refresh the form
+                RefreshIt();
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
         }
         private void RefreshIt()
         {
@@ -287,6 +275,9 @@ namespace MTList
                 dsPart = new DataSet();
                 dataAdapterPart.Fill(dsPart, "MTPart");
                 dataGridView4.DataSource = dsPart.Tables[0];
+
+                // Sort
+                SortIt();
 
                 // Colors the rows the defined colors in the database.
                 RowsColor();
@@ -340,6 +331,7 @@ namespace MTList
             {
                 SaveIt();
                 RefreshIt();
+                SortIt();
             }
             else
             {
@@ -354,6 +346,7 @@ namespace MTList
             
             // Refresh the data and re-color
             RefreshIt();
+            
 
         }
         public void RowsColor()
@@ -592,9 +585,7 @@ namespace MTList
 
         private void copyRowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Grid 1: " + this.dataGridView1.Focused.ToString() + " Grid 2: " + this.dataGridView2.Focused.ToString()
-                + " Grid 3: " + this.dataGridView3.Focused.ToString()
-                + " Grid 4: " + this.dataGridView4.Focused.ToString());
+            
 
             if (dataGridView1.Focused)
             {
@@ -654,6 +645,26 @@ namespace MTList
                 MessageBox.Show("No Paste Row Selected");
             }
 
+        }
+
+        private void insertRowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.dataGridView1.Rows.Insert(0, "one", "two", "three", "four");
+        }
+
+        private void tsSort_Click(object sender, EventArgs e)
+        {
+            if (!dataGridView2.Columns[8].Visible)
+            {
+                dataGridView1.Columns[8].Visible = true;
+                dataGridView2.Columns[8].Visible = true;
+            }
+            else
+            {
+                dataGridView1.Columns[8].Visible = false;
+                dataGridView2.Columns[8].Visible = false;
+            }
+            
         }
     }
 }

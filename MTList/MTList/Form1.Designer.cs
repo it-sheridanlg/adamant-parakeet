@@ -51,6 +51,7 @@
             this.notesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colorDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSortint = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mTTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mTLISTDataSet = new MTList.MTLISTDataSet();
             this.label2 = new System.Windows.Forms.Label();
@@ -63,6 +64,7 @@
             this.notesDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mTTable1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
@@ -92,23 +94,24 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsSort = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMTListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsRefresh = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.txtTEST = new System.Windows.Forms.TextBox();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.mTTableTableAdapter = new MTList.MTLISTDataSetTableAdapters.MTTableTableAdapter();
             this.tableAdapterManager = new MTList.MTLISTDataSetTableAdapters.TableAdapterManager();
             this.mTTable1TableAdapter = new MTList.MTLISTDataSetTableAdapters.MTTable1TableAdapter();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.mTHomeTableAdapter = new MTList.MTLISTDataSetTableAdapters.MTHomeTableAdapter();
             this.mTPartTableAdapter = new MTList.MTLISTDataSetTableAdapters.MTPartTableAdapter();
-            this.copyRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pasteRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             splitContainer1 = new System.Windows.Forms.SplitContainer();
             splitContainer3 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(splitContainer1)).BeginInit();
@@ -153,8 +156,8 @@
             // 
             splitContainer1.Panel2.Controls.Add(this.label2);
             splitContainer1.Panel2.Controls.Add(this.dataGridView2);
-            splitContainer1.Size = new System.Drawing.Size(1272, 402);
-            splitContainer1.SplitterDistance = 632;
+            splitContainer1.Size = new System.Drawing.Size(1446, 402);
+            splitContainer1.SplitterDistance = 718;
             splitContainer1.SplitterWidth = 2;
             splitContainer1.TabIndex = 5;
             splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
@@ -167,7 +170,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(632, 20);
+            this.label1.Size = new System.Drawing.Size(718, 20);
             this.label1.TabIndex = 8;
             this.label1.Text = "WEST COAST";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -200,7 +203,8 @@
             this.trailerDataGridViewTextBoxColumn,
             this.notesDataGridViewTextBoxColumn,
             this.statusDataGridViewTextBoxColumn,
-            this.colorDataGridViewTextBoxColumn1});
+            this.colorDataGridViewTextBoxColumn1,
+            this.colSortint});
             this.dataGridView1.DataSource = this.mTTableBindingSource;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
@@ -215,7 +219,7 @@
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ControlDarkDark;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(632, 402);
+            this.dataGridView1.Size = new System.Drawing.Size(718, 402);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
@@ -279,6 +283,14 @@
             this.colorDataGridViewTextBoxColumn1.Name = "colorDataGridViewTextBoxColumn1";
             this.colorDataGridViewTextBoxColumn1.Width = 66;
             // 
+            // colSortint
+            // 
+            this.colSortint.DataPropertyName = "colSortint";
+            this.colSortint.HeaderText = "Sort";
+            this.colSortint.Name = "colSortint";
+            this.colSortint.Visible = false;
+            this.colSortint.Width = 59;
+            // 
             // mTTableBindingSource
             // 
             this.mTTableBindingSource.DataMember = "MTTable";
@@ -297,7 +309,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(638, 20);
+            this.label2.Size = new System.Drawing.Size(726, 20);
             this.label2.TabIndex = 9;
             this.label2.Text = "EAST COAST";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -328,7 +340,8 @@
             this.trailerDataGridViewTextBoxColumn1,
             this.notesDataGridViewTextBoxColumn1,
             this.statusDataGridViewTextBoxColumn1,
-            this.colorDataGridViewTextBoxColumn});
+            this.colorDataGridViewTextBoxColumn,
+            this.dataGridViewTextBoxColumn1});
             this.dataGridView2.DataSource = this.mTTable1BindingSource;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
@@ -343,7 +356,7 @@
             this.dataGridView2.GridColor = System.Drawing.SystemColors.ControlDarkDark;
             this.dataGridView2.Location = new System.Drawing.Point(0, 0);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(638, 402);
+            this.dataGridView2.Size = new System.Drawing.Size(726, 402);
             this.dataGridView2.TabIndex = 3;
             this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged);
             this.dataGridView2.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView2_ColumnHeaderMouseClick);
@@ -406,6 +419,14 @@
             this.colorDataGridViewTextBoxColumn.Name = "colorDataGridViewTextBoxColumn";
             this.colorDataGridViewTextBoxColumn.Width = 66;
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "colSortint";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Sort";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Visible = false;
+            this.dataGridViewTextBoxColumn1.Width = 59;
+            // 
             // mTTable1BindingSource
             // 
             this.mTTable1BindingSource.DataMember = "MTTable1";
@@ -428,8 +449,8 @@
             // 
             splitContainer3.Panel2.Controls.Add(this.label4);
             splitContainer3.Panel2.Controls.Add(this.dataGridView4);
-            splitContainer3.Size = new System.Drawing.Size(1272, 212);
-            splitContainer3.SplitterDistance = 632;
+            splitContainer3.Size = new System.Drawing.Size(1446, 212);
+            splitContainer3.SplitterDistance = 718;
             splitContainer3.SplitterWidth = 2;
             splitContainer3.TabIndex = 0;
             // 
@@ -442,7 +463,7 @@
             this.label3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.label3.Location = new System.Drawing.Point(0, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(632, 20);
+            this.label3.Size = new System.Drawing.Size(718, 20);
             this.label3.TabIndex = 10;
             this.label3.Text = "HOME TIME / UNIT MOVE";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -486,7 +507,7 @@
             this.dataGridView3.EnableHeadersVisualStyles = false;
             this.dataGridView3.Location = new System.Drawing.Point(0, 0);
             this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.Size = new System.Drawing.Size(632, 212);
+            this.dataGridView3.Size = new System.Drawing.Size(718, 212);
             this.dataGridView3.TabIndex = 0;
             this.dataGridView3.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellValueChanged);
             this.dataGridView3.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView3_ColumnHeaderMouseClick);
@@ -567,7 +588,7 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(638, 20);
+            this.label4.Size = new System.Drawing.Size(726, 20);
             this.label4.TabIndex = 11;
             this.label4.Text = "PARTIALS";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -612,7 +633,7 @@
             this.dataGridView4.EnableHeadersVisualStyles = false;
             this.dataGridView4.Location = new System.Drawing.Point(0, 0);
             this.dataGridView4.Name = "dataGridView4";
-            this.dataGridView4.Size = new System.Drawing.Size(638, 212);
+            this.dataGridView4.Size = new System.Drawing.Size(726, 212);
             this.dataGridView4.TabIndex = 0;
             this.dataGridView4.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4_CellValueChanged);
             this.dataGridView4.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView4_ColumnHeaderMouseClick);
@@ -624,7 +645,7 @@
             this.iDDataGridViewTextBoxColumn3.Name = "iDDataGridViewTextBoxColumn3";
             this.iDDataGridViewTextBoxColumn3.ReadOnly = true;
             this.iDDataGridViewTextBoxColumn3.Visible = false;
-            this.iDDataGridViewTextBoxColumn3.Width = 43;
+            this.iDDataGridViewTextBoxColumn3.Width = 46;
             // 
             // driverNameDataGridViewTextBoxColumn3
             // 
@@ -691,7 +712,7 @@
             this.pasteRowToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1272, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1446, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -699,6 +720,7 @@
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.printToolStripMenuItem,
+            this.tsSort,
             this.exitToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
@@ -718,6 +740,13 @@
             this.printToolStripMenuItem1.Size = new System.Drawing.Size(99, 22);
             this.printToolStripMenuItem1.Text = "Print";
             this.printToolStripMenuItem1.Click += new System.EventHandler(this.printToolStripMenuItem1_Click);
+            // 
+            // tsSort
+            // 
+            this.tsSort.Name = "tsSort";
+            this.tsSort.Size = new System.Drawing.Size(99, 22);
+            this.tsSort.Text = "Sort";
+            this.tsSort.Click += new System.EventHandler(this.tsSort_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -755,6 +784,20 @@
             this.tsSave.Text = "Save";
             this.tsSave.Click += new System.EventHandler(this.tsSave_Click);
             // 
+            // copyRowToolStripMenuItem
+            // 
+            this.copyRowToolStripMenuItem.Name = "copyRowToolStripMenuItem";
+            this.copyRowToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.copyRowToolStripMenuItem.Text = "Copy Row";
+            this.copyRowToolStripMenuItem.Click += new System.EventHandler(this.copyRowToolStripMenuItem_Click);
+            // 
+            // pasteRowToolStripMenuItem
+            // 
+            this.pasteRowToolStripMenuItem.Name = "pasteRowToolStripMenuItem";
+            this.pasteRowToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.pasteRowToolStripMenuItem.Text = "Paste Row";
+            this.pasteRowToolStripMenuItem.Click += new System.EventHandler(this.pasteRowToolStripMenuItem_Click);
+            // 
             // printDocument1
             // 
             this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
@@ -775,30 +818,13 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.checkBox1.Location = new System.Drawing.Point(571, 6);
+            this.checkBox1.Location = new System.Drawing.Point(679, 6);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(88, 17);
             this.checkBox1.TabIndex = 1;
             this.checkBox1.Text = "Auto Refresh";
             this.checkBox1.UseVisualStyleBackColor = false;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // mTTableTableAdapter
-            // 
-            this.mTTableTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.MTHomeTableAdapter = null;
-            this.tableAdapterManager.MTPartTableAdapter = null;
-            this.tableAdapterManager.MTTable1TableAdapter = null;
-            this.tableAdapterManager.MTTableTableAdapter = this.mTTableTableAdapter;
-            this.tableAdapterManager.UpdateOrder = MTList.MTLISTDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
-            // mTTable1TableAdapter
-            // 
-            this.mTTable1TableAdapter.ClearBeforeFill = true;
             // 
             // splitContainer2
             // 
@@ -818,10 +844,27 @@
             // 
             this.splitContainer2.Panel2.BackColor = System.Drawing.Color.White;
             this.splitContainer2.Panel2.Controls.Add(splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1272, 615);
+            this.splitContainer2.Size = new System.Drawing.Size(1446, 615);
             this.splitContainer2.SplitterDistance = 402;
             this.splitContainer2.SplitterWidth = 1;
             this.splitContainer2.TabIndex = 7;
+            // 
+            // mTTableTableAdapter
+            // 
+            this.mTTableTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.MTHomeTableAdapter = null;
+            this.tableAdapterManager.MTPartTableAdapter = null;
+            this.tableAdapterManager.MTTable1TableAdapter = null;
+            this.tableAdapterManager.MTTableTableAdapter = this.mTTableTableAdapter;
+            this.tableAdapterManager.UpdateOrder = MTList.MTLISTDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // mTTable1TableAdapter
+            // 
+            this.mTTable1TableAdapter.ClearBeforeFill = true;
             // 
             // mTHomeTableAdapter
             // 
@@ -831,26 +874,12 @@
             // 
             this.mTPartTableAdapter.ClearBeforeFill = true;
             // 
-            // copyRowToolStripMenuItem
-            // 
-            this.copyRowToolStripMenuItem.Name = "copyRowToolStripMenuItem";
-            this.copyRowToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
-            this.copyRowToolStripMenuItem.Text = "Copy Row";
-            this.copyRowToolStripMenuItem.Click += new System.EventHandler(this.copyRowToolStripMenuItem_Click);
-            // 
-            // pasteRowToolStripMenuItem
-            // 
-            this.pasteRowToolStripMenuItem.Name = "pasteRowToolStripMenuItem";
-            this.pasteRowToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
-            this.pasteRowToolStripMenuItem.Text = "Paste Row";
-            this.pasteRowToolStripMenuItem.Click += new System.EventHandler(this.pasteRowToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1272, 656);
+            this.ClientSize = new System.Drawing.Size(1446, 656);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.splitContainer2);
@@ -925,14 +954,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn driverNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cityDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn trailerDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn notesDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colorDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn driverNameDataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn homeCityDataGridViewTextBoxColumn;
@@ -941,14 +962,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn howLongDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn notesDataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn colorDataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn driverNameDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cityDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stateDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn trailerDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn notesDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colorDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn driverNameDataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn cityDataGridViewTextBoxColumn2;
@@ -959,6 +972,25 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colorDataGridViewTextBoxColumn3;
         private System.Windows.Forms.ToolStripMenuItem copyRowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pasteRowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsSort;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn driverNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cityDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn stateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn trailerDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn notesDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colorDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colSortint;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn driverNameDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cityDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn stateDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn trailerDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn notesDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
     }
 }
 
