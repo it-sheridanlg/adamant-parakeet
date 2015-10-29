@@ -32,6 +32,7 @@ namespace MTList
         private SqlConnection conHome;
         private SqlConnection conPart;
         private System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
+        private bool unsaved = false;
 
         public Form1()
         {
@@ -86,6 +87,7 @@ namespace MTList
                 dataAdapterPart.Fill(dsPart, "MTPart");
                 dataGridView4.DataSource = dsPart.Tables[0];
 
+                unsaved = false;
 
 
 
@@ -199,51 +201,11 @@ namespace MTList
         {
             try
             {
-             // Change Focus
-                this.ActiveControl = txtTEST;
+             // Save new Data 
+                SaveIt();
 
-             // Save new data to database -MTTable
-                cmdbl = new SqlCommandBuilder(dataAdapter);
-                dataAdapter.AcceptChangesDuringUpdate = true;
-                dataAdapter.Update(ds, "MTTable");
-
-             // Save new data to database -MTTable1
-                cmdbl1 = new SqlCommandBuilder(dataAdapter1);
-                dataAdapter1.AcceptChangesDuringUpdate = true;
-                dataAdapter1.Update(ds1, "MTTable1");
-
-             // Save new data to database -MTHome
-                cmdblHome = new SqlCommandBuilder(dataAdapterHome);
-                dataAdapterHome.AcceptChangesDuringUpdate = true;
-                dataAdapterHome.Update(dsHome, "MTHome");
-
-             // Save new data to database -MTPart
-                cmdblPart = new SqlCommandBuilder(dataAdapterPart);
-                dataAdapterPart.AcceptChangesDuringUpdate = true;
-                dataAdapterPart.Update(dsPart, "MTPart");
-
-             // MTList Left Top Datagridview1
-                ds = new DataSet();
-                dataAdapter.Fill(ds, "MTTable");
-                dataGridView1.DataSource = ds.Tables[0];
-
-             // MTList1 Right Top Datagridview2
-                ds1 = new DataSet();
-                dataAdapter1.Fill(ds1, "MTTable1");
-                dataGridView2.DataSource = ds1.Tables[0];
-
-             // MTHome Left Bottom Datagridview3
-                dsHome = new DataSet();
-                dataAdapterHome.Fill(dsHome, "MTHome");
-                dataGridView3.DataSource = dsHome.Tables[0];
-
-             // MTPart Right Bottom Datagridview4
-                dsPart = new DataSet();
-                dataAdapterPart.Fill(dsPart, "MTPart");
-                dataGridView4.DataSource = dsPart.Tables[0];
-
-             // Colors the rows the defined colors in the database.
-                RowsColor();
+             // Refresh The Form
+                RefreshIt();
 
             }
             catch (System.Exception ex)
@@ -257,49 +219,52 @@ namespace MTList
             MessageBox.Show("MTList Version 0.2", "About", MessageBoxButtons.OK);
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            // Close all open database connections
-            con.Close();
-            con1.Close();
-            conHome.Close();
-            conPart.Close();
-
-
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-          
-            
-            
-
-            if (checkBox1.Checked == true)
+            if (keyData == (Keys.Control | Keys.R))
             {
-              timer1.Interval = 300000;//5 minutes
-              timer1.Tick += new System.EventHandler(timer1_Tick);
-              timer1.Start();
+                RefreshIt();
+                return true;
             }
-            else
-            { timer1.Stop(); }
+            else if (keyData == (Keys.Control | Keys.S))
+            {
                 
-        }
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            MessageBox.Show("TICK!");
-            //do whatever you want 
-            if (checkBox1.Checked == true)
-            {
-                MessageBox.Show("refresh called");
-                RefreshMyForm();
+                SaveIt();
+                RefreshIt();
             }
-            
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void RefreshMyForm()
+        private void SaveIt()
         {
-            MessageBox.Show("refresh started");
-            // Refresh the data and re-color
+            // Change Focus
+            this.ActiveControl = txtTEST;
+
+            // Save new data to database -MTTable
+            cmdbl = new SqlCommandBuilder(dataAdapter);
+            dataAdapter.AcceptChangesDuringUpdate = true;
+            dataAdapter.Update(ds, "MTTable");
+
+            // Save new data to database -MTTable1
+            cmdbl1 = new SqlCommandBuilder(dataAdapter1);
+            dataAdapter1.AcceptChangesDuringUpdate = true;
+            dataAdapter1.Update(ds1, "MTTable1");
+
+            // Save new data to database -MTHome
+            cmdblHome = new SqlCommandBuilder(dataAdapterHome);
+            dataAdapterHome.AcceptChangesDuringUpdate = true;
+            dataAdapterHome.Update(dsHome, "MTHome");
+
+            // Save new data to database -MTPart
+            cmdblPart = new SqlCommandBuilder(dataAdapterPart);
+            dataAdapterPart.AcceptChangesDuringUpdate = true;
+            dataAdapterPart.Update(dsPart, "MTPart");
+
+            // Note that data has been saved
+            unsaved = false;
+        }
+        private void RefreshIt()
+        {
             try
             {
 
@@ -333,6 +298,62 @@ namespace MTList
             {
                 System.Windows.Forms.MessageBox.Show(ex.Message);
             }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // Close all open database connections
+            con.Close();
+            con1.Close();
+            conHome.Close();
+            conPart.Close();
+
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+          
+            
+            
+
+            if (checkBox1.Checked == true)
+            {
+              timer1.Interval = 12000;//5 minutes300000
+                timer1.Tick += new System.EventHandler(timer1_Tick);
+              timer1.Start();
+            }
+            else
+            { timer1.Stop(); }
+                
+        }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
+
+            if (!unsaved)
+            {
+                MessageBox.Show("refresh called");
+                RefreshMyForm();
+            }
+            else if (unsaved | MessageBox.Show("You have unsaved changes! Do you want to save them now!?", "Save Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                SaveIt();
+                RefreshIt();
+            }
+            else
+            {
+                MessageBox.Show("Changes not saved and page not refreshed!");
+            }
+           
+            
+        }
+
+        private void RefreshMyForm()
+        {
+            
+            // Refresh the data and re-color
+            RefreshIt();
 
         }
         public void RowsColor()
@@ -341,6 +362,8 @@ namespace MTList
 
             string tempColor;
             string strColor;
+            string tempColorRea;
+            string strReadyPlan;
             
             int i = 0;
 
@@ -348,8 +371,9 @@ namespace MTList
             for (i = 0; i < dataGridView1.Rows.Count; i++)
             {
                 tempColor = dataGridView1.Rows[i].Cells[7].FormattedValue.ToString();
-
+                tempColorRea = dataGridView1.Rows[i].Cells[6].FormattedValue.ToString();
                 strColor = tempColor.ToUpper();
+                strReadyPlan = tempColorRea.ToUpper();
 
                 bool y = strColor.Contains("Y");
                 bool r = strColor.Contains("R");
@@ -357,6 +381,8 @@ namespace MTList
                 bool w = strColor.Contains("W");
                 bool b = strColor.Contains("B");
                 bool d = strColor.Contains("D");
+                bool ready = strReadyPlan.Contains("READY");
+                bool planned = strReadyPlan.Contains("PLANNED");
 
 
 
@@ -375,6 +401,10 @@ namespace MTList
                     col = Color.Black;
                     dataGridView1.Rows[i].DefaultCellStyle.ForeColor = Color.White; 
                 }
+                else if (ready)
+                { col = Color.Green; }
+                else if (planned)
+                { col = Color.Yellow; }
                 else
                 { col = Color.White; }
 
@@ -386,8 +416,9 @@ namespace MTList
             for (i = 0; i < dataGridView2.Rows.Count; i++)
             {
                 tempColor = dataGridView2.Rows[i].Cells[7].FormattedValue.ToString();
-
+                tempColorRea = dataGridView2.Rows[i].Cells[6].FormattedValue.ToString();
                 strColor = tempColor.ToUpper();
+                strReadyPlan = tempColorRea.ToUpper();
 
                 bool y = strColor.Contains("Y");
                 bool r = strColor.Contains("R");
@@ -395,6 +426,8 @@ namespace MTList
                 bool w = strColor.Contains("W");
                 bool b = strColor.Contains("B");
                 bool d = strColor.Contains("D");
+                bool ready = strReadyPlan.Contains("READY");
+                bool planned = strReadyPlan.Contains("PLANNED");
 
                 if (y)
                 { col = Color.Yellow;  }
@@ -411,6 +444,10 @@ namespace MTList
                     col = Color.Black;
                     dataGridView2.Rows[i].DefaultCellStyle.ForeColor = Color.White;
                 }
+                else if (ready)
+                { col = Color.Green; }
+                else if (planned)
+                { col = Color.Yellow; }
                 else
                 { col = Color.White; }
 
@@ -494,13 +531,128 @@ namespace MTList
 
         }
 
-        private void redToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-           
-        }
 
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
         {
+
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            unsaved = true;
+        }
+
+        private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            unsaved = true;
+        }
+
+        private void dataGridView3_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            unsaved = true;
+        }
+
+        private void dataGridView4_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            unsaved = true;
+        }
+
+        private void dataGridView3_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            RowsColor();
+        }
+
+        private void dataGridView2_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            RowsColor();
+        }
+
+        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            RowsColor();
+        }
+
+        private void dataGridView4_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            RowsColor();
+        }
+        private void copyRowNow(DataGridView datCo,DataGridView datPa, int selCo,int selPa)
+        {
+
+
+            for (int j = 0; j < datCo.Rows[selCo].Cells.Count; j++)
+
+                datPa.Rows[selPa].Cells[j].Value = datCo.Rows[selCo].Cells[j].Value;
+        }
+
+        private int selC;
+        private int selP;
+        private DataGridView datC;
+        private DataGridView datP;
+
+        private void copyRowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Grid 1: " + this.dataGridView1.Focused.ToString() + " Grid 2: " + this.dataGridView2.Focused.ToString()
+                + " Grid 3: " + this.dataGridView3.Focused.ToString()
+                + " Grid 4: " + this.dataGridView4.Focused.ToString());
+
+            if (dataGridView1.Focused)
+            {
+                selC = dataGridView1.SelectedRows[0].Index;
+                datC = dataGridView1;
+               
+            }
+            else if (dataGridView2.Focused)
+            {
+                selC = dataGridView2.SelectedRows[0].Index;
+                datC = dataGridView2;
+            }
+            else if (dataGridView3.Focused)
+            {
+                selC = dataGridView3.SelectedRows[0].Index;
+                datC = dataGridView3;
+            }
+            else if (dataGridView4.Focused)
+            {
+                selC = dataGridView4.SelectedRows[0].Index;
+                datC = dataGridView4;
+            }
+            else
+            {
+                MessageBox.Show("No Copy Row Selected");
+            }
+        }
+
+        private void pasteRowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.Focused)
+            {
+                selP = dataGridView1.SelectedRows[0].Index;
+                datP = dataGridView1;
+                copyRowNow(datC, datP, selC, selP);
+            }
+            else if (dataGridView2.Focused)
+            {
+                selP = dataGridView2.SelectedRows[0].Index;
+                datP = dataGridView2;
+                copyRowNow(datC, datP, selC, selP);
+            }
+            else if (dataGridView3.Focused)
+            {
+                selP = dataGridView3.SelectedRows[0].Index;
+                datP = dataGridView3;
+                copyRowNow(datC, datP, selC, selP);
+            }
+            else if (dataGridView4.Focused)
+            {
+                selP = dataGridView4.SelectedRows[0].Index;
+                datP = dataGridView4;
+                copyRowNow(datC, datP, selC, selP);
+            }
+            else
+            {
+                MessageBox.Show("No Paste Row Selected");
+            }
 
         }
     }
