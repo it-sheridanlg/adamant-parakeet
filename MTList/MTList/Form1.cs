@@ -33,6 +33,7 @@ namespace MTList
         private SqlConnection conPart;
         private System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
         private bool unsaved = false;
+        private bool ready = false;
 
         public Form1()
         {
@@ -45,12 +46,6 @@ namespace MTList
             
             try
             {
-                
-
-
-
-
-
             // MTList Left Top Datagridview1
                 con = new SqlConnection();
                 con.ConnectionString = @"server=192.168.1.213;Integrated Security=true;Initial Catalog=MTList";
@@ -93,10 +88,7 @@ namespace MTList
 
              // Set saved
                 unsaved = false;
-
-
-
-
+                ready = true;
 
             // Colors the rows the defined colors in the database.
                 RowsColor();
@@ -136,7 +128,7 @@ namespace MTList
             //Get the document
             if (DialogResult.OK == printDialog.ShowDialog())
             {
-                printDocument1.DocumentName = "Test Page Print";
+                printDocument1.DocumentName = "MTList Print";
                 printDocument1.Print();
             }
 
@@ -163,9 +155,10 @@ namespace MTList
 
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            Bitmap bm = new Bitmap(this.dataGridView1.Width + this.dataGridView2.Width, this.dataGridView1.Height);
-            dataGridView1.DrawToBitmap(bm, new Rectangle(0, 0, this.dataGridView1.Width, this.dataGridView1.Height));
-            dataGridView2.DrawToBitmap(bm, new Rectangle(this.dataGridView1.Width, 0, this.dataGridView2.Width, this.dataGridView2.Height));
+            Bitmap bm = new Bitmap(dataGridView1.Width + dataGridView2.Width, dataGridView1.Height + dataGridView3.Height);
+            dataGridView1.DrawToBitmap(bm, new Rectangle(0, 0, dataGridView1.Width, dataGridView1.Height));
+            dataGridView2.DrawToBitmap(bm, new Rectangle(dataGridView1.Width, 0, dataGridView2.Width, dataGridView2.Height));
+            dataGridView3.DrawToBitmap(bm, new Rectangle(0, dataGridView1.Height, dataGridView3.Width, dataGridView3.Height));
             e.Graphics.DrawImage(bm, 0, 10);
         }
 
@@ -210,6 +203,7 @@ namespace MTList
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
 
         private void SaveIt()
         {
@@ -279,6 +273,8 @@ namespace MTList
 
                 // Sort
                 SortIt();
+
+                unsaved = false;
 
                 // Colors the rows the defined colors in the database.
                 RowsColor();
@@ -350,10 +346,7 @@ namespace MTList
 
 
             if (!unsaved)
-            {
-                MessageBox.Show("refresh called");
-                RefreshMyForm();
-            }
+            { RefreshIt(); }
             else if (unsaved | MessageBox.Show("You have unsaved changes! Do you want to save them now!?", "Save Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 SaveIt();
@@ -368,14 +361,6 @@ namespace MTList
             
         }
 
-        private void RefreshMyForm()
-        {
-            
-            // Refresh the data and re-color
-            RefreshIt();
-            
-
-        }
         public void RowsColor()
         {
             Color col = new Color();
@@ -403,8 +388,6 @@ namespace MTList
                 bool d = strColor.Contains("D");
                 bool ready = strReadyPlan.Contains("READY");
                 bool planned = strReadyPlan.Contains("PLANNED");
-
-
 
                 if (y)
                 { col = Color.Yellow; }
@@ -552,33 +535,48 @@ namespace MTList
         }
 
 
-        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-
-        }
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             unsaved = true;
             RowsColor();
+            if (e.RowIndex >= 0)
+            {
+                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+            }
         }
 
         private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             unsaved = true;
             RowsColor();
+            if (e.RowIndex >= 0)
+            {
+                dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+            }
+
         }
 
         private void dataGridView3_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             unsaved = true;
             RowsColor();
+            if (e.RowIndex >= 0)
+            {
+                dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+            }
+
         }
 
         private void dataGridView4_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             unsaved = true;
             RowsColor();
+            if (e.RowIndex >= 0)
+            {
+                dataGridView4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+            }
+
         }
 
         private void dataGridView3_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -656,6 +654,21 @@ namespace MTList
 
         }
 
+        public static string FirstCharToUpper(string input)
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(input))
+                    throw new ArgumentException("ARGH!");
+                return input.First().ToString().ToUpper() + input.Substring(1);
+            }
+            catch (ArgumentException e)
+            {
+             
+                return input;
+            }
+        }
+
         private void pasteRowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -696,11 +709,6 @@ namespace MTList
                 System.Windows.Forms.MessageBox.Show(ex.Message +"\n" + " PLEASE SELECT A FULL ROW.");
             }
 
-        }
-
-        private void insertRowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.dataGridView1.Rows.Insert(0, "one", "two", "three", "four");
         }
 
         private void tsSort_Click(object sender, EventArgs e)

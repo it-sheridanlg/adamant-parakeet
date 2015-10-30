@@ -94,6 +94,7 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.printForBrokersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSort = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -112,7 +113,6 @@
             this.mTTable1TableAdapter = new MTList.MTLISTDataSetTableAdapters.MTTable1TableAdapter();
             this.mTHomeTableAdapter = new MTList.MTLISTDataSetTableAdapters.MTHomeTableAdapter();
             this.mTPartTableAdapter = new MTList.MTLISTDataSetTableAdapters.MTPartTableAdapter();
-            this.printForBrokersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             splitContainer1 = new System.Windows.Forms.SplitContainer();
             splitContainer3 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(splitContainer1)).BeginInit();
@@ -161,7 +161,6 @@
             splitContainer1.SplitterDistance = 718;
             splitContainer1.SplitterWidth = 2;
             splitContainer1.TabIndex = 5;
-            splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
             // label1
             // 
@@ -743,6 +742,13 @@
             this.printToolStripMenuItem1.Text = "Print";
             this.printToolStripMenuItem1.Click += new System.EventHandler(this.printToolStripMenuItem1_Click);
             // 
+            // printForBrokersToolStripMenuItem
+            // 
+            this.printForBrokersToolStripMenuItem.Name = "printForBrokersToolStripMenuItem";
+            this.printForBrokersToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.printForBrokersToolStripMenuItem.Text = "Print for Brokers";
+            this.printForBrokersToolStripMenuItem.Click += new System.EventHandler(this.printForBrokersToolStripMenuItem_Click);
+            // 
             // tsSort
             // 
             this.tsSort.Name = "tsSort";
@@ -875,13 +881,6 @@
             // mTPartTableAdapter
             // 
             this.mTPartTableAdapter.ClearBeforeFill = true;
-            // 
-            // printForBrokersToolStripMenuItem
-            // 
-            this.printForBrokersToolStripMenuItem.Name = "printForBrokersToolStripMenuItem";
-            this.printForBrokersToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.printForBrokersToolStripMenuItem.Text = "Print for Brokers";
-            this.printForBrokersToolStripMenuItem.Click += new System.EventHandler(this.printForBrokersToolStripMenuItem_Click);
             // 
             // Form1
             // 
