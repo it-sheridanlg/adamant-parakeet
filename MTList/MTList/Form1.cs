@@ -207,6 +207,7 @@ namespace MTList
                 SaveIt();
                 RefreshIt();
             }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -293,11 +294,37 @@ namespace MTList
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            // Close all open database connections
-            con.Close();
-            con1.Close();
-            conHome.Close();
-            conPart.Close();
+            
+            if (unsaved)
+            {
+                if (MessageBox.Show("You have unsaved changes! Do you want to save them now!?", "Save Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    SaveIt();
+                    // Close all open database connections
+                    con.Close();
+                    con1.Close();
+                    conHome.Close();
+                    conPart.Close();
+                }
+                else
+                {
+                    // Close all open database connections
+                    con.Close();
+                    con1.Close();
+                    conHome.Close();
+                    conPart.Close();
+                }
+                
+            }
+            else
+            {
+                // Close all open database connections
+                con.Close();
+                con1.Close();
+                conHome.Close();
+                conPart.Close();
+            }
+
 
 
         }
@@ -310,7 +337,7 @@ namespace MTList
 
             if (checkBox1.Checked == true)
             {
-              timer1.Interval = 12000;//5 minutes300000
+              timer1.Interval = 300000;//5 minutes300000
                 timer1.Tick += new System.EventHandler(timer1_Tick);
               timer1.Start();
             }
@@ -533,21 +560,25 @@ namespace MTList
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             unsaved = true;
+            RowsColor();
         }
 
         private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             unsaved = true;
+            RowsColor();
         }
 
         private void dataGridView3_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             unsaved = true;
+            RowsColor();
         }
 
         private void dataGridView4_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             unsaved = true;
+            RowsColor();
         }
 
         private void dataGridView3_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -585,64 +616,84 @@ namespace MTList
 
         private void copyRowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            try
+            {
 
-            if (dataGridView1.Focused)
-            {
-                selC = dataGridView1.SelectedRows[0].Index;
-                datC = dataGridView1;
-               
+                if (dataGridView1.Focused)
+                {
+                    selC = dataGridView1.SelectedRows[0].Index;
+                    datC = dataGridView1;
+
+                }
+                else if (dataGridView2.Focused)
+                {
+                    selC = dataGridView2.SelectedRows[0].Index;
+                    datC = dataGridView2;
+                }
+                else if (dataGridView3.Focused)
+                {
+                    selC = dataGridView3.SelectedRows[0].Index;
+                    datC = dataGridView3;
+                }
+                else if (dataGridView4.Focused)
+                {
+                    selC = dataGridView4.SelectedRows[0].Index;
+                    datC = dataGridView4;
+                }
+                else
+                {
+                    MessageBox.Show("No Copy Row Selected");
+                }
             }
-            else if (dataGridView2.Focused)
+            catch (System.Exception ex)
             {
-                selC = dataGridView2.SelectedRows[0].Index;
-                datC = dataGridView2;
+                System.Windows.Forms.MessageBox.Show(ex.Message + "\n" + " PLEASE SELECT A FULL ROW.");
             }
-            else if (dataGridView3.Focused)
-            {
-                selC = dataGridView3.SelectedRows[0].Index;
-                datC = dataGridView3;
-            }
-            else if (dataGridView4.Focused)
-            {
-                selC = dataGridView4.SelectedRows[0].Index;
-                datC = dataGridView4;
-            }
-            else
-            {
-                MessageBox.Show("No Copy Row Selected");
-            }
+        }
+
+        private void printForBrokersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void pasteRowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.Focused)
+            try
             {
-                selP = dataGridView1.SelectedRows[0].Index;
-                datP = dataGridView1;
-                copyRowNow(datC, datP, selC, selP);
+
+
+                if (dataGridView1.Focused)
+                {
+                    selP = dataGridView1.SelectedRows[0].Index;
+                    datP = dataGridView1;
+                    copyRowNow(datC, datP, selC, selP);
+                }
+                else if (dataGridView2.Focused)
+                {
+                    selP = dataGridView2.SelectedRows[0].Index;
+                    datP = dataGridView2;
+                    copyRowNow(datC, datP, selC, selP);
+                }
+                else if (dataGridView3.Focused)
+                {
+                    selP = dataGridView3.SelectedRows[0].Index;
+                    datP = dataGridView3;
+                    copyRowNow(datC, datP, selC, selP);
+                }
+                else if (dataGridView4.Focused)
+                {
+                    selP = dataGridView4.SelectedRows[0].Index;
+                    datP = dataGridView4;
+                    copyRowNow(datC, datP, selC, selP);
+                }
+                else
+                {
+                    MessageBox.Show("No Paste Row Selected");
+                }
             }
-            else if (dataGridView2.Focused)
+            catch(System.Exception ex)
             {
-                selP = dataGridView2.SelectedRows[0].Index;
-                datP = dataGridView2;
-                copyRowNow(datC, datP, selC, selP);
-            }
-            else if (dataGridView3.Focused)
-            {
-                selP = dataGridView3.SelectedRows[0].Index;
-                datP = dataGridView3;
-                copyRowNow(datC, datP, selC, selP);
-            }
-            else if (dataGridView4.Focused)
-            {
-                selP = dataGridView4.SelectedRows[0].Index;
-                datP = dataGridView4;
-                copyRowNow(datC, datP, selC, selP);
-            }
-            else
-            {
-                MessageBox.Show("No Paste Row Selected");
+                System.Windows.Forms.MessageBox.Show(ex.Message +"\n" + " PLEASE SELECT A FULL ROW.");
             }
 
         }

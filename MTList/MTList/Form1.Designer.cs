@@ -112,6 +112,7 @@
             this.mTTable1TableAdapter = new MTList.MTLISTDataSetTableAdapters.MTTable1TableAdapter();
             this.mTHomeTableAdapter = new MTList.MTLISTDataSetTableAdapters.MTHomeTableAdapter();
             this.mTPartTableAdapter = new MTList.MTLISTDataSetTableAdapters.MTPartTableAdapter();
+            this.printForBrokersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             splitContainer1 = new System.Windows.Forms.SplitContainer();
             splitContainer3 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(splitContainer1)).BeginInit();
@@ -729,29 +730,30 @@
             // printToolStripMenuItem
             // 
             this.printToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.printToolStripMenuItem1});
+            this.printToolStripMenuItem1,
+            this.printForBrokersToolStripMenuItem});
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.printToolStripMenuItem.Text = "Print";
             // 
             // printToolStripMenuItem1
             // 
             this.printToolStripMenuItem1.Name = "printToolStripMenuItem1";
-            this.printToolStripMenuItem1.Size = new System.Drawing.Size(99, 22);
+            this.printToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
             this.printToolStripMenuItem1.Text = "Print";
             this.printToolStripMenuItem1.Click += new System.EventHandler(this.printToolStripMenuItem1_Click);
             // 
             // tsSort
             // 
             this.tsSort.Name = "tsSort";
-            this.tsSort.Size = new System.Drawing.Size(99, 22);
+            this.tsSort.Size = new System.Drawing.Size(152, 22);
             this.tsSort.Text = "Sort";
             this.tsSort.Click += new System.EventHandler(this.tsSort_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -874,6 +876,13 @@
             // 
             this.mTPartTableAdapter.ClearBeforeFill = true;
             // 
+            // printForBrokersToolStripMenuItem
+            // 
+            this.printForBrokersToolStripMenuItem.Name = "printForBrokersToolStripMenuItem";
+            this.printForBrokersToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.printForBrokersToolStripMenuItem.Text = "Print for Brokers";
+            this.printForBrokersToolStripMenuItem.Click += new System.EventHandler(this.printForBrokersToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -991,6 +1000,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn colorDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.ToolStripMenuItem printForBrokersToolStripMenuItem;
     }
 }
 
