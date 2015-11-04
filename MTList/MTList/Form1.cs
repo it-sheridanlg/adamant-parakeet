@@ -8,13 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-
+using System.Globalization;
+using System.Collections;
 
 namespace MTList
 {
     public partial class Form1 : Form
     {
+        #region Variables
         private System.Data.SqlClient.SqlDataAdapter dataAdapter;
         private System.Data.SqlClient.SqlDataAdapter dataAdapter1;
         private System.Data.SqlClient.SqlDataAdapter dataAdapterHome;
@@ -33,7 +34,26 @@ namespace MTList
         private SqlConnection conPart;
         private System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
         private bool unsaved = false;
-        private bool ready = false;
+
+        //for Copy/Paste Rows
+        private int selC;
+        private int selP;
+        private DataGridView datC;
+        private DataGridView datP;
+
+        //For Printing
+        StringFormat strFormat;//Used to format the grid Rows.
+        ArrayList arrColumnLefts = new ArrayList();//Used to save left coordinates of columns
+        ArrayList arrColumnWidths = new ArrayList();//Used to save column widths
+        int iCellHeight = 0;//Used to get/set the datagridview cell height
+        int iTotalWidth = 0;
+        int iRow = 0;//Used as counter
+        bool bFirstPage = false;//Used to check weather we are printing the first page.
+        bool bNewPage = false;//Used to check whether we are printing a new page.
+        int iHeaderHeight = 0;//Used for the header height
+        #endregion
+
+        private bool forBrokers = false;
 
         public Form1()
         {
@@ -46,7 +66,9 @@ namespace MTList
             
             try
             {
-            // MTList Left Top Datagridview1
+                this.dataGridView1.CellValidating += new
+            DataGridViewCellValidatingEventHandler(dataGridView1_CellValidating);
+                // MTList Left Top Datagridview1
                 con = new SqlConnection();
                 con.ConnectionString = @"server=192.168.1.213;Integrated Security=true;Initial Catalog=MTList";
                 con.Open();
@@ -88,7 +110,7 @@ namespace MTList
 
              // Set saved
                 unsaved = false;
-                ready = true;
+               
 
             // Colors the rows the defined colors in the database.
                 RowsColor();
@@ -119,6 +141,7 @@ namespace MTList
 
         }
 
+       
         private void printToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             // public event ReportPrintEventHandler Print
@@ -130,8 +153,394 @@ namespace MTList
             {
                 printDocument1.DocumentName = "MTList Print";
                 printDocument1.Print();
+                printDocument2.Print();
+
             }
 
+        }
+       
+        private void printForBrokersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            forBrokers = true;
+            printDocument1.DefaultPageSettings.Landscape = false;
+            // public event ReportPrintEventHandler Print
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.Document = printDocument1;
+            printDialog.UseEXDialog = true;
+            //Get the document
+            if (DialogResult.OK == printDialog.ShowDialog())
+            {
+                printDocument1.DocumentName = "MTList Print";
+                printDocument1.Print();
+                printDocument2.Print();
+            }
+
+
+        }
+
+        #region Begin Print
+        private void printDocument1_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            try
+            {
+                if (forBrokers)
+                {
+                    dataGridView1.Columns[1].Visible = false;
+                    dataGridView1.Columns[5].Visible = false;
+                    dataGridView1.Columns[7].Visible = false;
+
+                }
+                else
+                {
+                    printDocument1.DefaultPageSettings.Landscape = true;
+                }
+
+                
+                strFormat = new StringFormat();
+                strFormat.Alignment = StringAlignment.Near;
+                strFormat.LineAlignment = StringAlignment.Center;
+                strFormat.Trimming = StringTrimming.EllipsisCharacter;
+
+                arrColumnLefts.Clear();
+                arrColumnWidths.Clear();
+                iCellHeight = 0;
+                iRow = 0;
+                bFirstPage = true;
+                bNewPage = true;
+
+                // Calculating total widths
+                iTotalWidth = 0;
+                foreach (DataGridViewColumn dgvGridCol in dataGridView1.Columns)
+                {
+                    if (!dgvGridCol.Visible) continue;
+                    iTotalWidth += dgvGridCol.Width +5;
+                }                
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+        }
+        #endregion
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+           
+            try
+            {
+                // Set Margin
+                int iLeftMargin = e.MarginBounds.Left;
+                int iTopMargin = e.MarginBounds.Top;
+                // Weather there are more pages to print or not
+                bool bMorePagesToPrint = false;
+                int iTmpWidth = 0;
+
+                //Set cell width and header height for first page
+                if (bFirstPage)
+                {
+                    foreach (DataGridViewColumn gridCol in dataGridView1.Columns)
+                    {
+                        if (!gridCol.Visible) continue;
+                        iTmpWidth = (int)(Math.Floor((double)((double)gridCol.Width /
+                            (double)iTotalWidth * (double)iTotalWidth *
+                            ((double)e.MarginBounds.Width / (double)iTotalWidth))));
+
+                        iHeaderHeight = (int)(e.Graphics.MeasureString(gridCol.HeaderText,
+                                    gridCol.InheritedStyle.Font, iTmpWidth).Height) + 11;
+                        // Save width and height of headers
+                        arrColumnLefts.Add(iLeftMargin);
+                        arrColumnWidths.Add(iTmpWidth);
+                        iLeftMargin += iTmpWidth;
+
+                    }
+                }
+                // Loop Till All Is Printed
+                while(iRow <= dataGridView1.Rows.Count - 1)
+                {
+                    DataGridViewRow gridRow = dataGridView1.Rows[iRow];
+                    // Set the cell height
+                    iCellHeight = gridRow.Height;
+                    int iCount = 0;
+                    // Check wether there is enough room to print more rows
+                    if(iTopMargin + iCellHeight >= e.MarginBounds.Height + e.MarginBounds.Top)
+                    {
+                        bNewPage = true;
+                        bFirstPage = false;
+                        bMorePagesToPrint = true;
+                        break;
+                    }
+                    else
+                    {
+                        if (bNewPage)
+                        {
+                            // Draw Header
+                            e.Graphics.DrawString("East Coast", new Font(dataGridView1.Font, FontStyle.Bold),
+                                Brushes.Black, e.MarginBounds.Left, e.MarginBounds.Top -
+                                e.Graphics.MeasureString("East Coast", new Font(dataGridView1.Font,
+                                FontStyle.Bold), e.MarginBounds.Width).Height - 13);
+
+                            string strDate = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToShortTimeString();
+                            // Draw Date
+                            e.Graphics.DrawString(strDate, new Font(dataGridView1.Font, FontStyle.Bold),
+                                Brushes.Black, e.MarginBounds.Left + (e.MarginBounds.Width -
+                                e.Graphics.MeasureString(strDate, new Font(dataGridView1.Font, 
+                                FontStyle.Bold), e.MarginBounds.Width).Width), e.MarginBounds.Top - 
+                                e.Graphics.MeasureString("East Coast", new Font(new Font(dataGridView1.Font,
+                                FontStyle.Bold),FontStyle.Bold), e.MarginBounds.Width).Height);
+
+                            // Draw Columns
+                            iTopMargin = e.MarginBounds.Top;
+                            foreach (DataGridViewColumn gridCol in dataGridView1.Columns)
+                            {
+                                if (!gridCol.Visible) continue;
+                                e.Graphics.FillRectangle(new SolidBrush(Color.LightGray),
+                                    new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
+                                    (int)arrColumnWidths[iCount], iHeaderHeight));
+
+                                e.Graphics.DrawRectangle(Pens.Black,
+                                    new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
+                                    (int)arrColumnWidths[iCount],iHeaderHeight));
+
+                                e.Graphics.DrawString(gridCol.HeaderText, gridCol.InheritedStyle.Font,
+                                    new SolidBrush(gridCol.InheritedStyle.ForeColor),
+                                    new RectangleF((int)arrColumnLefts[iCount], iTopMargin,
+                                    (int)arrColumnWidths[iCount], iHeaderHeight), strFormat);
+                                iCount++;
+                            }
+                            bNewPage = false;
+                            iTopMargin += iHeaderHeight;
+                            
+                        }
+                        iCount = 0;
+                        // Draw Columns Contents
+                        foreach (DataGridViewCell cel in gridRow.Cells)
+                        {
+                            cel.Style.WrapMode = DataGridViewTriState.False;
+                            if (!cel.Visible) continue;
+                            else if (cel.Value != null)
+                            {
+                                e.Graphics.DrawString(cel.Value.ToString(), cel.InheritedStyle.Font,
+                                    new SolidBrush(cel.InheritedStyle.ForeColor),
+                                    new RectangleF((int)arrColumnLefts[iCount], (float)iTopMargin,
+                                    (int)arrColumnWidths[iCount], (float)iCellHeight), strFormat);
+                            }
+                            // Draw Cell Borders
+                            e.Graphics.DrawRectangle(Pens.Black, new Rectangle((int)arrColumnLefts[iCount],
+                                iTopMargin, (int)arrColumnWidths[iCount], iCellHeight));
+
+                            iCount++;
+                        }
+                    }
+                    iRow++;
+                    iTopMargin += iCellHeight;
+                }
+
+                // If more lines exist, print another page
+                if (bMorePagesToPrint)
+                {
+                    e.HasMorePages = true;
+                }
+                else
+                {
+                    e.HasMorePages = false;
+                    dataGridView1.Columns[1].Visible = true;
+                    dataGridView1.Columns[5].Visible = true;
+                    dataGridView1.Columns[7].Visible = true;
+                    
+                }
+                
+
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
+
+        
+
+
+        private int printIndex;
+
+        private void printDocument2_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            try
+            {
+                if (forBrokers)
+                {
+                    
+                    dataGridView2.Columns[1].Visible = false;
+                    dataGridView2.Columns[5].Visible = false;
+                    dataGridView2.Columns[7].Visible = false;
+                }
+                else
+                {
+                    printDocument2.DefaultPageSettings.Landscape = true;
+                }
+
+
+                strFormat = new StringFormat();
+                strFormat.Alignment = StringAlignment.Near;
+                strFormat.LineAlignment = StringAlignment.Center;
+                strFormat.Trimming = StringTrimming.EllipsisCharacter;
+
+                arrColumnLefts.Clear();
+                arrColumnWidths.Clear();
+                iCellHeight = 0;
+                iRow = 0;
+                bFirstPage = true;
+                bNewPage = true;
+
+                // Calculating total widths
+                iTotalWidth = 0;
+                foreach (DataGridViewColumn dgvGridCol in dataGridView2.Columns)
+                {
+                    if (!dgvGridCol.Visible) continue;
+                    iTotalWidth += dgvGridCol.Width + 5;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void printDocument2_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            try
+            {
+                // Set Margin
+                int iLeftMargin = e.MarginBounds.Left;
+                int iTopMargin = e.MarginBounds.Top;
+                // Weather there are more pages to print or not
+                bool bMorePagesToPrint = false;
+                int iTmpWidth = 0;
+
+                //Set cell width and header height for first page
+                if (bFirstPage)
+                {
+                    foreach (DataGridViewColumn gridCol in dataGridView2.Columns)
+                    {
+                        if (!gridCol.Visible) continue;
+                        iTmpWidth = (int)(Math.Floor((double)((double)gridCol.Width /
+                            (double)iTotalWidth * (double)iTotalWidth *
+                            ((double)e.MarginBounds.Width / (double)iTotalWidth))));
+
+                        iHeaderHeight = (int)(e.Graphics.MeasureString(gridCol.HeaderText,
+                                    gridCol.InheritedStyle.Font, iTmpWidth).Height) + 11;
+                        // Save width and height of headers
+                        arrColumnLefts.Add(iLeftMargin);
+                        arrColumnWidths.Add(iTmpWidth);
+                        iLeftMargin += iTmpWidth;
+
+                    }
+                }
+                // Loop Till All Is Printed
+                while (iRow <= dataGridView2.Rows.Count - 1)
+                {
+                    DataGridViewRow gridRow = dataGridView2.Rows[iRow];
+                    // Set the cell height
+                    iCellHeight = gridRow.Height;
+                    int iCount = 0;
+                    // Check wether there is enough room to print more rows
+                    if (iTopMargin + iCellHeight >= e.MarginBounds.Height + e.MarginBounds.Top)
+                    {
+                        bNewPage = true;
+                        bFirstPage = false;
+                        bMorePagesToPrint = true;
+                        break;
+                    }
+                    else
+                    {
+                        if (bNewPage)
+                        {
+                            // Draw Header
+                            e.Graphics.DrawString("West Coast", new Font(dataGridView2.Font, FontStyle.Bold),
+                                Brushes.Black, e.MarginBounds.Left, e.MarginBounds.Top -
+                                e.Graphics.MeasureString("West Coast", new Font(dataGridView2.Font,
+                                FontStyle.Bold), e.MarginBounds.Width).Height - 13);
+
+                            string strDate = DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToShortTimeString();
+                            // Draw Date
+                            e.Graphics.DrawString(strDate, new Font(dataGridView2.Font, FontStyle.Bold),
+                                Brushes.Black, e.MarginBounds.Left + (e.MarginBounds.Width -
+                                e.Graphics.MeasureString(strDate, new Font(dataGridView2.Font,
+                                FontStyle.Bold), e.MarginBounds.Width).Width), e.MarginBounds.Top -
+                                e.Graphics.MeasureString("West Coast", new Font(new Font(dataGridView2.Font,
+                                FontStyle.Bold), FontStyle.Bold), e.MarginBounds.Width).Height);
+
+                            // Draw Columns
+                            iTopMargin = e.MarginBounds.Top;
+                            foreach (DataGridViewColumn gridCol in dataGridView2.Columns)
+                            {
+                                if (!gridCol.Visible) continue;
+                                e.Graphics.FillRectangle(new SolidBrush(Color.LightGray),
+                                    new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
+                                    (int)arrColumnWidths[iCount], iHeaderHeight));
+
+                                e.Graphics.DrawRectangle(Pens.Black,
+                                    new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
+                                    (int)arrColumnWidths[iCount], iHeaderHeight));
+
+                                e.Graphics.DrawString(gridCol.HeaderText, gridCol.InheritedStyle.Font,
+                                    new SolidBrush(gridCol.InheritedStyle.ForeColor),
+                                    new RectangleF((int)arrColumnLefts[iCount], iTopMargin,
+                                    (int)arrColumnWidths[iCount], iHeaderHeight), strFormat);
+                                iCount++;
+                            }
+                            bNewPage = false;
+                            iTopMargin += iHeaderHeight;
+
+                        }
+                        iCount = 0;
+                        // Draw Columns Contents
+                        foreach (DataGridViewCell cel in gridRow.Cells)
+                        {
+                            cel.Style.WrapMode = DataGridViewTriState.False;
+                            if (!cel.Visible) continue;
+                            else if (cel.Value != null)
+                            {
+                                e.Graphics.DrawString(cel.Value.ToString(), cel.InheritedStyle.Font,
+                                    new SolidBrush(cel.InheritedStyle.ForeColor),
+                                    new RectangleF((int)arrColumnLefts[iCount], (float)iTopMargin,
+                                    (int)arrColumnWidths[iCount], (float)iCellHeight), strFormat);
+                            }
+                            // Draw Cell Borders
+                            e.Graphics.DrawRectangle(Pens.Black, new Rectangle((int)arrColumnLefts[iCount],
+                                iTopMargin, (int)arrColumnWidths[iCount], iCellHeight));
+
+                            iCount++;
+                        }
+                    }
+                    iRow++;
+                    iTopMargin += iCellHeight;
+                }
+
+                // If more lines exist, print another page
+                if (bMorePagesToPrint)
+                {
+                    e.HasMorePages = true;
+                }
+                else
+                {
+                    e.HasMorePages = false;
+                    
+                    dataGridView2.Columns[1].Visible = true;
+                    dataGridView2.Columns[5].Visible = true;
+                    dataGridView2.Columns[7].Visible = true;
+                    forBrokers = false;
+                }
+
+
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
         }
 
         private void fillByToolStripButton_Click(object sender, EventArgs e)
@@ -153,14 +562,6 @@ namespace MTList
             
         }
 
-        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-            Bitmap bm = new Bitmap(dataGridView1.Width + dataGridView2.Width, dataGridView1.Height + dataGridView3.Height);
-            dataGridView1.DrawToBitmap(bm, new Rectangle(0, 0, dataGridView1.Width, dataGridView1.Height));
-            dataGridView2.DrawToBitmap(bm, new Rectangle(dataGridView1.Width, 0, dataGridView2.Width, dataGridView2.Height));
-            dataGridView3.DrawToBitmap(bm, new Rectangle(0, dataGridView1.Height, dataGridView3.Width, dataGridView3.Height));
-            e.Graphics.DrawImage(bm, 0, 10);
-        }
 
         private void tsRefresh_Click(object sender, EventArgs e)
         {
@@ -184,7 +585,7 @@ namespace MTList
 
         private void aboutMTListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("MTList Version 0.2", "About", MessageBoxButtons.OK);
+            MessageBox.Show("MTList Version 0.3", "About", MessageBoxButtons.OK);
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -199,6 +600,13 @@ namespace MTList
                 
                 SaveIt();
                 RefreshIt();
+            }
+            if (dataGridView1.Columns[0] == dataGridView1.Columns[8])
+            {
+                if(keyData ==Keys.S)
+                {
+                    MessageBox.Show("Error");
+                }
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -325,6 +733,7 @@ namespace MTList
 
         }
 
+        #region Auto Refresh Checkbox and Timer
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
           
@@ -360,7 +769,7 @@ namespace MTList
            
             
         }
-
+        #endregion//
         public void RowsColor()
         {
             Color col = new Color();
@@ -542,7 +951,18 @@ namespace MTList
             RowsColor();
             if (e.RowIndex >= 0)
             {
-                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                if (e.ColumnIndex == 3)
+                {
+                    dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().ToUpper();
+
+                }
+                else
+                {
+                    if (e.ColumnIndex != 8)
+                    {
+                        dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                    }
+                }
             }
         }
 
@@ -552,7 +972,19 @@ namespace MTList
             RowsColor();
             if (e.RowIndex >= 0)
             {
-                dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                if (e.ColumnIndex == 3)
+                {
+                    dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().ToUpper();
+                }
+                else
+                {
+                    if (e.ColumnIndex != 8)
+                    {
+                        dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+
+                    }
+                }
+                
             }
 
         }
@@ -563,7 +995,16 @@ namespace MTList
             RowsColor();
             if (e.RowIndex >= 0)
             {
-                dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                if (e.ColumnIndex == 3)
+                {
+                    dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().ToUpper();
+                }
+                else if (e.ColumnIndex != 8)
+                {
+                    dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+
+                }
+
             }
 
         }
@@ -598,6 +1039,7 @@ namespace MTList
         {
             RowsColor();
         }
+
         private void copyRowNow(DataGridView datCo,DataGridView datPa, int selCo,int selPa)
         {
 
@@ -607,10 +1049,48 @@ namespace MTList
                 datPa.Rows[selPa].Cells[j].Value = datCo.Rows[selCo].Cells[j].Value;
         }
 
-        private int selC;
-        private int selP;
-        private DataGridView datC;
-        private DataGridView datP;
+        private void pasteRowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+
+                if (dataGridView1.Focused)
+                {
+                    selP = dataGridView1.SelectedRows[0].Index;
+                    datP = dataGridView1;
+                    copyRowNow(datC, datP, selC, selP);
+                }
+                else if (dataGridView2.Focused)
+                {
+                    selP = dataGridView2.SelectedRows[0].Index;
+                    datP = dataGridView2;
+                    copyRowNow(datC, datP, selC, selP);
+                }
+                else if (dataGridView3.Focused)
+                {
+                    selP = dataGridView3.SelectedRows[0].Index;
+                    datP = dataGridView3;
+                    copyRowNow(datC, datP, selC, selP);
+                }
+                else if (dataGridView4.Focused)
+                {
+                    selP = dataGridView4.SelectedRows[0].Index;
+                    datP = dataGridView4;
+                    copyRowNow(datC, datP, selC, selP);
+                }
+                else
+                {
+                    MessageBox.Show("No Paste Row Selected");
+                }
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message + "\n" + " PLEASE SELECT A FULL ROW.");
+            }
+
+        }
+
 
         private void copyRowToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -649,18 +1129,76 @@ namespace MTList
             }
         }
 
-        private void printForBrokersToolStripMenuItem_Click(object sender, EventArgs e)
-        {
 
+        private void dataGridView1_RowLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            RowsColor();
         }
+
+        //Validate number input V
+        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.ColumnIndex == 8 && e.FormattedValue.ToString() != "")
+            {
+                dataGridView1.Rows[e.RowIndex].ErrorText = "";
+                int newInteger;
+                
+
+                // Don't try to validate the 'new row' until finished 
+                // editing since there
+                // is not any point in validating its initial value.
+                //if (dataGridView1.Rows[e.RowIndex].IsNewRow) { return; }
+
+                if (!int.TryParse(e.FormattedValue.ToString(),
+                    out newInteger) || newInteger < -2550 || newInteger > 2550)
+                {
+                    dataGridView1.EditingControl.Text = "1000";
+                    
+                }
+            }
+            if (e.ColumnIndex == 8 && e.FormattedValue.ToString() != "")
+            {
+
+            }
+
+       }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {}
+
+
+
+        private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {}
+
+
 
         public static string FirstCharToUpper(string input)
         {
             try
             {
-                if (String.IsNullOrEmpty(input))
-                    throw new ArgumentException("ARGH!");
-                return input.First().ToString().ToUpper() + input.Substring(1);
+                StringBuilder sb = new StringBuilder(input.Length);
+                if (input != "")
+                {
+                    
+                    // Upper the first char.
+                    sb.Append(char.ToUpper(input[0]));
+                    for (int i = 1; i < input.Length; i++)
+                    {
+                        // Get the current char.
+                        char c = input[i];
+
+                        // Upper if after a space.
+                        if (char.IsWhiteSpace(input[i - 1]))
+                            c = char.ToUpper(c);
+                        else
+                            c = char.ToLower(c);
+
+                        sb.Append(c);
+                    }
+                }
+                
+                return input = sb.ToString();
             }
             catch (ArgumentException e)
             {
@@ -669,47 +1207,7 @@ namespace MTList
             }
         }
 
-        private void pasteRowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
-
-                if (dataGridView1.Focused)
-                {
-                    selP = dataGridView1.SelectedRows[0].Index;
-                    datP = dataGridView1;
-                    copyRowNow(datC, datP, selC, selP);
-                }
-                else if (dataGridView2.Focused)
-                {
-                    selP = dataGridView2.SelectedRows[0].Index;
-                    datP = dataGridView2;
-                    copyRowNow(datC, datP, selC, selP);
-                }
-                else if (dataGridView3.Focused)
-                {
-                    selP = dataGridView3.SelectedRows[0].Index;
-                    datP = dataGridView3;
-                    copyRowNow(datC, datP, selC, selP);
-                }
-                else if (dataGridView4.Focused)
-                {
-                    selP = dataGridView4.SelectedRows[0].Index;
-                    datP = dataGridView4;
-                    copyRowNow(datC, datP, selC, selP);
-                }
-                else
-                {
-                    MessageBox.Show("No Paste Row Selected");
-                }
-            }
-            catch(System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message +"\n" + " PLEASE SELECT A FULL ROW.");
-            }
-
-        }
+       
 
         private void tsSort_Click(object sender, EventArgs e)
         {

@@ -1,0 +1,5 @@
+C:\Users\clint\Documents\Visual Studio 2015\GridPrintPreviewSolution\GridPrintPreviewSolution\GridLib\bin\Debug\GridLib.dll
+C:\Users\clint\Documents\Visual Studio 2015\GridPrintPreviewSolution\GridPrintPreviewSolution\GridLib\bin\Debug\GridLib.pdb
+C:\Users\clint\Documents\Visual Studio 2015\GridPrintPreviewSolution\GridPrintPreviewSolution\GridLib\obj\Debug\GridPrintPreviewLib.csprojResolveAssemblyReference.cache
+C:\Users\clint\Documents\Visual Studio 2015\GridPrintPreviewSolution\GridPrintPreviewSolution\GridLib\obj\Debug\GridLib.dll
+C:\Users\clint\Documents\Visual Studio 2015\GridPrintPreviewSolution\GridPrintPreviewSolution\GridLib\obj\Debug\GridLib.pdb

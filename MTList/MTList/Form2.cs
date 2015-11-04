@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace MTList
 {
     public partial class Form2 : Form
@@ -15,6 +16,11 @@ namespace MTList
         public Form2()
         {
             InitializeComponent();
+        }
+
+        private void Printgrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
         }
     }
 }
