@@ -52,6 +52,7 @@
             this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colorDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSortint = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Num = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mTTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mTLISTDataSet = new MTList.MTLISTDataSet();
             this.label2 = new System.Windows.Forms.Label();
@@ -65,6 +66,7 @@
             this.statusDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Numb = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mTTable1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
@@ -205,7 +207,8 @@
             this.notesDataGridViewTextBoxColumn,
             this.statusDataGridViewTextBoxColumn,
             this.colorDataGridViewTextBoxColumn1,
-            this.colSortint});
+            this.colSortint,
+            this.Num});
             this.dataGridView1.DataSource = this.mTTableBindingSource;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
@@ -294,6 +297,13 @@
             this.colSortint.Visible = false;
             this.colSortint.Width = 59;
             // 
+            // Num
+            // 
+            this.Num.HeaderText = "Num";
+            this.Num.Name = "Num";
+            this.Num.Visible = false;
+            this.Num.Width = 62;
+            // 
             // mTTableBindingSource
             // 
             this.mTTableBindingSource.DataMember = "MTTable";
@@ -344,7 +354,8 @@
             this.notesDataGridViewTextBoxColumn1,
             this.statusDataGridViewTextBoxColumn1,
             this.colorDataGridViewTextBoxColumn,
-            this.dataGridViewTextBoxColumn1});
+            this.dataGridViewTextBoxColumn1,
+            this.Numb});
             this.dataGridView2.DataSource = this.mTTable1BindingSource;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
@@ -361,6 +372,7 @@
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(726, 402);
             this.dataGridView2.TabIndex = 3;
+            this.dataGridView2.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridView2_CellValidating);
             this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged);
             this.dataGridView2.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView2_ColumnHeaderMouseClick);
             // 
@@ -429,6 +441,13 @@
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Visible = false;
             this.dataGridViewTextBoxColumn1.Width = 59;
+            // 
+            // Numb
+            // 
+            this.Numb.HeaderText = "Numb";
+            this.Numb.Name = "Numb";
+            this.Numb.Visible = false;
+            this.Numb.Width = 70;
             // 
             // mTTable1BindingSource
             // 
@@ -773,11 +792,12 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // aboutMTListToolStripMenuItem
             // 
             this.aboutMTListToolStripMenuItem.Name = "aboutMTListToolStripMenuItem";
-            this.aboutMTListToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.aboutMTListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutMTListToolStripMenuItem.Text = "About MTList";
             this.aboutMTListToolStripMenuItem.Click += new System.EventHandler(this.aboutMTListToolStripMenuItem_Click);
             // 
@@ -1010,6 +1030,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.ToolStripMenuItem printForBrokersToolStripMenuItem;
         private System.Drawing.Printing.PrintDocument printDocument2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Num;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Numb;
     }
 }
 

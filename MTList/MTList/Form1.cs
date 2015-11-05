@@ -16,30 +16,17 @@ namespace MTList
     public partial class Form1 : Form
     {
         #region Variables
-        private System.Data.SqlClient.SqlDataAdapter dataAdapter;
-        private System.Data.SqlClient.SqlDataAdapter dataAdapter1;
-        private System.Data.SqlClient.SqlDataAdapter dataAdapterHome;
-        private System.Data.SqlClient.SqlDataAdapter dataAdapterPart;
+        private System.Data.SqlClient.SqlDataAdapter dataAdapter, dataAdapter1, dataAdapterHome, dataAdapterPart;
         private DataSet ds, ds1, dsHome, dsPart;
-        //private DataSet ds1;
-        //private DataSet dsHome;
-        //private DataSet dsPart;
-        private SqlCommandBuilder cmdbl;
-        private SqlCommandBuilder cmdbl1;
-        private SqlCommandBuilder cmdblHome;
-        private SqlCommandBuilder cmdblPart;
-        private SqlConnection con;
-        private SqlConnection con1;
-        private SqlConnection conHome;
-        private SqlConnection conPart;
+        private SqlCommandBuilder cmdbl,cmdbl1,cmdblHome,cmdblPart;
+        private SqlConnection con,con1,conHome,conPart;
         private System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
         private bool unsaved = false;
+        private bool pasting = false;
 
         //for Copy/Paste Rows
-        private int selC;
-        private int selP;
-        private DataGridView datC;
-        private DataGridView datP;
+        private int selC,selP;
+        private DataGridView datC,datP;
 
         //For Printing
         StringFormat strFormat;//Used to format the grid Rows.
@@ -68,6 +55,10 @@ namespace MTList
             {
                 this.dataGridView1.CellValidating += new
             DataGridViewCellValidatingEventHandler(dataGridView1_CellValidating);
+
+                this.dataGridView2.CellValidating += new
+            DataGridViewCellValidatingEventHandler(dataGridView2_CellValidating);
+
                 // MTList Left Top Datagridview1
                 con = new SqlConnection();
                 con.ConnectionString = @"server=192.168.1.213;Integrated Security=true;Initial Catalog=MTList";
@@ -179,17 +170,28 @@ namespace MTList
         }
 
         #region Begin Print
+        int iNum;
         private void printDocument1_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
         {
             try
             {
                 if (forBrokers)
                 {
+                    iNum = 0;
                     dataGridView1.Columns[1].Visible = false;
                     dataGridView1.Columns[5].Visible = false;
+                    dataGridView1.Columns[6].Visible = false;
                     dataGridView1.Columns[7].Visible = false;
+                    dataGridView1.Columns[8].Visible = false;
+                    dataGridView1.Columns[9].Visible = true;
+                    while (iNum <= dataGridView1.Rows.Count - 1)
+                    {
+                        dataGridView1.Rows[iNum].Cells[9].Value = iNum + 1;
+                        iNum++;
+                    }
 
-                }
+
+                    }
                 else
                 {
                     printDocument1.DefaultPageSettings.Landscape = true;
@@ -347,7 +349,9 @@ namespace MTList
                     e.HasMorePages = false;
                     dataGridView1.Columns[1].Visible = true;
                     dataGridView1.Columns[5].Visible = true;
+                    dataGridView1.Columns[6].Visible = true;
                     dataGridView1.Columns[7].Visible = true;
+                    dataGridView1.Columns[9].Visible = false;
                     
                 }
                 
@@ -371,14 +375,26 @@ namespace MTList
             {
                 if (forBrokers)
                 {
+                    iNum = 0;
                     
                     dataGridView2.Columns[1].Visible = false;
                     dataGridView2.Columns[5].Visible = false;
+                    dataGridView2.Columns[6].Visible = false;
                     dataGridView2.Columns[7].Visible = false;
+                    dataGridView2.Columns[8].Visible = false;
+                    dataGridView2.Columns[9].Visible = true;
+                    while (iNum <= dataGridView2.Rows.Count - 1)
+                    {
+                        dataGridView2.Rows[iNum].Cells[9].Value = iNum + 1;
+
+                        iNum++;
+
+                    }
                 }
                 else
                 {
                     printDocument2.DefaultPageSettings.Landscape = true;
+                    dataGridView2.Columns[8].Visible = false;
                 }
 
 
@@ -531,6 +547,8 @@ namespace MTList
                     dataGridView2.Columns[1].Visible = true;
                     dataGridView2.Columns[5].Visible = true;
                     dataGridView2.Columns[7].Visible = true;
+                    dataGridView2.Columns[6].Visible = true;
+                    dataGridView2.Columns[9].Visible = false;
                     forBrokers = false;
                 }
 
@@ -585,7 +603,7 @@ namespace MTList
 
         private void aboutMTListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("MTList Version 0.3", "About", MessageBoxButtons.OK);
+            MessageBox.Show("MTList Version 1.0", "About", MessageBoxButtons.OK);
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -803,7 +821,7 @@ namespace MTList
                 else if (r)
                 { col = Color.Red; }
                 else if (g)
-                { col = Color.Green; }
+                { col = Color.LightGreen; }
                 else if (b)
                 { col = Color.LightBlue; }
                 else if (w)
@@ -814,7 +832,7 @@ namespace MTList
                     dataGridView1.Rows[i].DefaultCellStyle.ForeColor = Color.White; 
                 }
                 else if (ready)
-                { col = Color.Green; }
+                { col = Color.LightGreen; }
                 else if (planned)
                 { col = Color.Yellow; }
                 else
@@ -846,7 +864,7 @@ namespace MTList
                 else if (r)
                 { col = Color.Red; }
                 else if (g)
-                { col = Color.Green; }
+                { col = Color.LightGreen; }
                 else if (b)
                 { col = Color.LightBlue; }
                 else if (w)
@@ -857,7 +875,7 @@ namespace MTList
                     dataGridView2.Rows[i].DefaultCellStyle.ForeColor = Color.White;
                 }
                 else if (ready)
-                { col = Color.Green; }
+                { col = Color.LightGreen; }
                 else if (planned)
                 { col = Color.Yellow; }
                 else
@@ -886,7 +904,7 @@ namespace MTList
                 else if (r)
                 { col = Color.Red; }
                 else if (g)
-                { col = Color.Green; }
+                { col = Color.LightGreen; }
                 else if (b)
                 { col = Color.LightBlue; }
                 else if (w)
@@ -924,7 +942,7 @@ namespace MTList
                 else if (r)
                 { col = Color.Red; }
                 else if (g)
-                { col = Color.Green; }
+                { col = Color.LightGreen; }
                 else if (b)
                 { col = Color.LightBlue; }
                 else if (w)
@@ -949,42 +967,49 @@ namespace MTList
         {
             unsaved = true;
             RowsColor();
-            if (e.RowIndex >= 0)
+            if (!pasting)
             {
-                if (e.ColumnIndex == 3)
+                if (e.RowIndex >= 0)
                 {
-                    dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().ToUpper();
-
-                }
-                else
-                {
-                    if (e.ColumnIndex != 8)
+                    if (e.ColumnIndex == 3 || e.ColumnIndex == 4)
                     {
-                        dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                        dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().ToUpper();
+
+                    }
+                    else
+                    {
+                        if (e.ColumnIndex != 8)
+                        {
+                            dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                        }
                     }
                 }
             }
+            
         }
 
         private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             unsaved = true;
             RowsColor();
-            if (e.RowIndex >= 0)
+            if (!pasting)
             {
-                if (e.ColumnIndex == 3)
+                if (e.RowIndex >= 0)
                 {
-                    dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().ToUpper();
-                }
-                else
-                {
-                    if (e.ColumnIndex != 8)
+                    if (e.ColumnIndex == 3 || e.ColumnIndex == 4)
                     {
-                        dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
-
+                        dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().ToUpper();
                     }
+                    else
+                    {
+                        if (e.ColumnIndex != 8)
+                        {
+                            dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+
+                        }
+                    }
+
                 }
-                
             }
 
         }
@@ -993,18 +1018,21 @@ namespace MTList
         {
             unsaved = true;
             RowsColor();
-            if (e.RowIndex >= 0)
+            if (!pasting)
             {
-                if (e.ColumnIndex == 3)
+                if (e.RowIndex >= 0)
                 {
-                    dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().ToUpper();
-                }
-                else if (e.ColumnIndex != 8)
-                {
-                    dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                    if (e.ColumnIndex == 3)
+                    {
+                        dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().ToUpper();
+                    }
+                    else if (e.ColumnIndex != 8)
+                    {
+                        dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+
+                    }
 
                 }
-
             }
 
         }
@@ -1013,9 +1041,20 @@ namespace MTList
         {
             unsaved = true;
             RowsColor();
-            if (e.RowIndex >= 0)
+            if (!pasting)
             {
-                dataGridView4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                if (e.RowIndex >= 0)
+                {
+                    if (e.ColumnIndex == 3 || e.ColumnIndex == 4)
+                    {
+                        dataGridView4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = dataGridView4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().ToUpper();
+                    }
+                    else if (e.ColumnIndex != 8)
+                    {
+                        dataGridView4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FirstCharToUpper(dataGridView4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+
+                    }
+                }
             }
 
         }
@@ -1044,15 +1083,19 @@ namespace MTList
         {
 
 
-            for (int j = 0; j < datCo.Rows[selCo].Cells.Count; j++)
-
-                datPa.Rows[selPa].Cells[j].Value = datCo.Rows[selCo].Cells[j].Value;
+            for (int j = 0; j < datCo.Rows[selCo].Cells.Count -1; j++)
+                if (j != 8)
+                {
+                    datPa.Rows[selPa].Cells[j].Value = datCo.Rows[selCo].Cells[j].Value;
+                }
+                
         }
 
         private void pasteRowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
+                pasting = true;
 
 
                 if (dataGridView1.Focused)
@@ -1083,10 +1126,12 @@ namespace MTList
                 {
                     MessageBox.Show("No Paste Row Selected");
                 }
+                pasting = false;
             }
             catch (System.Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show(ex.Message + "\n" + " PLEASE SELECT A FULL ROW.");
+                pasting = false;
             }
 
         }
@@ -1166,7 +1211,37 @@ namespace MTList
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {}
 
+        private void dataGridView2_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.ColumnIndex == 8 && e.FormattedValue.ToString() != "")
+            {
+                dataGridView2.Rows[e.RowIndex].ErrorText = "";
+                int newInteger;
 
+
+                // Don't try to validate the 'new row' until finished 
+                // editing since there
+                // is not any point in validating its initial value.
+                //if (dataGridView1.Rows[e.RowIndex].IsNewRow) { return; }
+
+                if (!int.TryParse(e.FormattedValue.ToString(),
+                    out newInteger) || newInteger < -2550 || newInteger > 2550)
+                {
+                    dataGridView2.EditingControl.Text = "1000";
+
+                }
+            }
+            if (e.ColumnIndex == 8 && e.FormattedValue.ToString() != "")
+            {
+
+            }
+
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
 
         private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
         {}
